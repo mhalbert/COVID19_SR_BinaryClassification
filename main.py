@@ -20,11 +20,12 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         x1,y1,x2,y2 = bboxes[i]
         img = img[y1:y2,x1:x2]
-        img = cv2.resize(img, dim_size , interpolation = interpolation)
-        # add SR step here
-        #
-        #
-        #
+        img64 = cv2.resize(img, dim_size , interpolation = interpolation)
+        img128 = cv2.resize(img, (128, 128) , interpolation = interpolation)
+        cv2.imwrite('/src/64res/ct' + i + '_64.png', img64)
+        cv2.imwrite('/src/128res/ct' + i + '_128.png', img128)
+    #Run sr step on 64res and 128res folder
+    # loop through SR output folder new128res
         x.append(img)
 
     x = np.array(x)
