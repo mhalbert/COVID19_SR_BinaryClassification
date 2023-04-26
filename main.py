@@ -1,4 +1,3 @@
-
 import cv2
 import numpy as np
 import pandas as pd
@@ -33,8 +32,8 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         x= x/255
     return x , y
 
-IMG_HEIGHT = 128
-IMG_WIDTH = 128
+IMG_HEIGHT = 64
+IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
 TRAIN_SET= 46778
 VALID_SET= 6486
