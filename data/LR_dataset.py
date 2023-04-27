@@ -9,17 +9,17 @@ class LRDataset(data.Dataset):
     '''
 
     def name(self):
-        return common.find_benchmark(self.opt['dataroot_LR'])
+        return common.find_benchmark('/64res')      # directory of LR imgs
 
 
-    def __init__(self, opt):
+    def __init__(self, path):
         super(LRDataset, self).__init__()
-        self.opt = opt
-        self.scale = self.opt['scale']
+        self.oath = path
+        self.scale = 2      # scale of task (2x)
         self.paths_LR = None
 
         # read image list from image/binary files
-        self.paths_LR = common.get_image_paths(opt['data_type'], opt['dataroot_LR'])
+        self.paths_LR = common.get_image_paths("img", path)
         assert self.paths_LR, '[Error] LR paths are empty.'
 
 

@@ -14,9 +14,9 @@ from networks import init_weights
 from utils import util
 
 class SRSolver(BaseSolver):
-    def __init__(self, opt):
-        super(SRSolver, self).__init__(opt)
-        self.train_opt = opt['solver']
+    def __init__(self):
+        super(SRSolver, self).__init__()
+        self.train_opt = "./models/best_FAWDN+_x2.pth"
         self.LR = self.Tensor()
         self.HR = self.Tensor()
         # self.patch_size = opt['datasets']['train']['LR_size']
@@ -28,8 +28,8 @@ class SRSolver(BaseSolver):
                         'ssim': [],
                         'lr': []}
 
-        self.model = create_model(opt)
-        self.print_network()
+        self.model = create_model("sr")
+        #self.print_network()
 
         if self.is_train:
             self.model.train()
@@ -290,7 +290,7 @@ class SRSolver(BaseSolver):
         load or initialize network
         """
         if (self.is_train and self.opt['solver']['pretrain']) or not self.is_train:
-            model_path = self.opt['solver']['pretrained_path']
+            model_path = './models/best_FAWDN+_x2.pth'
             if model_path is None: raise ValueError("[Error] The 'pretrained_path' does not declarate in *.json")
 
             print('===> Loading model from [%s]...' % model_path)
@@ -313,10 +313,12 @@ class SRSolver(BaseSolver):
 
 
             else:
-                checkpoint = torch.load(model_path)
+                checkpoint = torch.load(model_path,  map_location=torch.device('cpu'))
+
                 if 'state_dict' in checkpoint.keys(): checkpoint = checkpoint['state_dict']
-                load_func = self.model.load_state_dict if isinstance(self.model, nn.DataParallel) \
-                    else self.model.module.load_state_dict
+
+                load_func = self.model.load_state_dict if isinstance(self.model, nn.DataParallel) else  self.model.module.load_state_dict
+
                 load_func(checkpoint)
 
         else:

@@ -4,33 +4,33 @@ import torch.nn as nn
 #from torchstat import stat
 
 class BaseSolver(object):
-    def __init__(self, opt):
-        self.opt = opt
-        self.scale = opt['scale']
-        self.is_train = opt['is_train']
-        self.use_chop = opt['use_chop']
-        self.self_ensemble = opt['self_ensemble']
-        self.use_cl = True if opt['use_cl'] else False
+    def __init__(self):
+        #self.opt = opt
+        self.scale = 2
+        self.is_train = False    # set true for training
+        self.use_chop = True
+        self.self_ensemble = False
+        self.use_cl = True
 
         # GPU verify
         self.use_gpu = torch.cuda.is_available()
         self.Tensor = torch.cuda.FloatTensor if self.use_gpu else torch.FloatTensor
 
         # for better training (stablization and less GPU memory usage)
-        self.last_epoch_loss = 1e8
-        self.skip_threshold = opt['solver']['skip_threshold']
+        #self.last_epoch_loss = 1e8
+        #self.skip_threshold = 0     # check for training
         # save GPU memory during training
-        self.split_batch = opt['solver']['split_batch']
+        #self.split_batch = 0        # check for training
 
         # experimental dirs
-        self.exp_root = opt['path']['exp_root']
-        self.checkpoint_dir = opt['path']['epochs']
-        self.records_dir = opt['path']['records']
-        self.visual_dir = opt['path']['visual']
+        #self.exp_root = opt['path']['exp_root']
+        #self.checkpoint_dir = opt['path']['epochs']
+        #self.records_dir = opt['path']['records']
+        #self.visual_dir = opt['path']['visual']
 
         # log and vis scheme
-        self.save_ckp_step = opt['solver']['save_ckp_step']
-        self.save_vis_step = opt['solver']['save_vis_step']
+        #self.save_ckp_step = opt['solver']['save_ckp_step']
+        #self.save_vis_step = opt['solver']['save_vis_step']
 
         self.best_epoch = 0
         self.cur_epoch = 1
