@@ -107,8 +107,8 @@ EPOCHS = 40
 BS = 32
 n = 8000
 LR = 0.0001
-label_file_train = "/Users/melodyhalbert/Downloads/covidxct1/train_COVIDx-CT.txt"
-label_file_valid = "/Users/melodyhalbert/Downloads/covidxct1/val_COVIDx-CT.txt"
+label_file_train = "train_COVIDx-CT.txt"
+label_file_valid = "val_COVIDx-CT.txt"
 
 fnames_train, classes_train, bboxes_train = load_labels(label_file_train)
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
