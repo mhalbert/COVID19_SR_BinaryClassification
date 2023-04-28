@@ -313,18 +313,18 @@ class SRSolver(BaseSolver):
 
 
             else:
-                checkpoint = torch.load(model_path,  map_location=torch.device('cpu'))
+                checkpoint = torch.load(model_path)
                 #print(checkpoint.keys())
                 if 'state_dict' in checkpoint.keys(): checkpoint = checkpoint['state_dict']
 
-                from collections import OrderedDict
-                new_state_dict = OrderedDict()
-                for k, v in checkpoint.items():
-                    name = k[7:] # remove module.
-                    new_state_dict[name] = v
-                #load_func = self.model.load_state_dict if isinstance(self.model, nn.DataParallel) else  self.model.module.load_state_dict
+                #from collections import OrderedDict
+                #new_state_dict = OrderedDict()
+                #for k, v in checkpoint.items():
+                #    name = k[7:] # remove module.
+                #    new_state_dict[name] = v
+                load_func = self.model.load_state_dict if isinstance(self.model, nn.DataParallel) else  self.model.module.load_state_dict
 
-                self.model.load_state_dict(new_state_dict)
+                load_func(checkpoint)
 
         else:
             self._net_init()
