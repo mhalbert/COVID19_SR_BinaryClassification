@@ -338,11 +338,11 @@ class SRSolver(BaseSolver):
         out_dict['LR'] = self.LR.data[0].float().cpu()
         out_dict['SR'] = self.SR.data[0].float().cpu()
         if need_np:  out_dict['LR'], out_dict['SR'] = util.Tensor2np([out_dict['LR'], out_dict['SR']],
-                                                                        self.opt['rgb_range'])
+                                                                        255)
         if need_HR:
             out_dict['HR'] = self.HR.data[0].float().cpu()
             if need_np: out_dict['HR'] = util.Tensor2np([out_dict['HR']],
-                                                           self.opt['rgb_range'])[0]
+                                                           255)[0]
         return out_dict
 
 
@@ -353,8 +353,8 @@ class SRSolver(BaseSolver):
         if epoch % self.save_vis_step == 0:
             visuals_list = []
             visuals = self.get_current_visual(need_np=False)
-            visuals_list.extend([util.quantize(visuals['HR'].squeeze(0), self.opt['rgb_range']),
-                                 util.quantize(visuals['SR'].squeeze(0), self.opt['rgb_range'])])
+            visuals_list.extend([util.quantize(visuals['HR'].squeeze(0), 255),
+                                 util.quantize(visuals['SR'].squeeze(0), 255)])
             visual_images = torch.stack(visuals_list)
             visual_images = thutil.make_grid(visual_images, nrow=2, padding=5)
             visual_images = visual_images.byte().permute(1, 2, 0).numpy()
