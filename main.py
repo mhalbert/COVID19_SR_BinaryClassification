@@ -122,8 +122,8 @@ valid_index = index_generator(fnames_valid, VALID_SET)
 
 # train_index_updated = train_index_updater(classes_train,train_index, n)
 
-df = dataframe_generator(train_index_updated, valid_index, classes_train, classes_valid)
-df.plot.bar(title = "Image Distribution");
+# df = dataframe_generator(train_index_updated, valid_index, classes_train, classes_valid)
+# df.plot.bar(title = "Image Distribution");
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 
