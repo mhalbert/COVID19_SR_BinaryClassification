@@ -40,7 +40,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     # Run sr step on 64res
     test.inference('64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
-    for img in os.listdir('/results/SR/MyImage/FAWDN/'):
+    for img in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
         x.append(img)
 
     x = np.array(x)

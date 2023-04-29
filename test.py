@@ -102,7 +102,7 @@ def inference(img_path):
         #if need_HR:
         #    save_img_path = os.path.join('./results/SR/'+degrad, model_name, bm, "x%d"%scale)
         #else:
-        save_img_path = os.path.join('./results/SR/'+bm, model_name, "x%d"%scale)
+        save_img_path = os.path.join('/kaggle/working/'+bm, model_name, "x%d"%scale)
 
         print("===> Saving SR images of [%s]... Save Path: [%s]\n" % (bm, save_img_path))
 
