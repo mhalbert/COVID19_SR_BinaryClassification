@@ -128,6 +128,10 @@ valid_index = index_generator(fnames_valid, VALID_SET)
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 
+print('Input data type:', type(x_valid))
+print('Input data shape:', x_valid.shape)
+print('Input data:', x_valid)
+
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
 
 for i in range(len(y_valid)):
@@ -138,4 +142,3 @@ for i in range(len(y_valid)):
 
 # import pretrained binary models
 # inference on x_valid
-
