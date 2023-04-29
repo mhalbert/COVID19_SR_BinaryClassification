@@ -117,6 +117,7 @@ label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
 # fnames_train, classes_train, bboxes_train = load_labels(label_file_train)
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
+print(fnames_valid)
 # train_index = index_generator(fnames_train, TRAIN_SET)
 valid_index = index_generator(fnames_valid, VALID_SET)
 
