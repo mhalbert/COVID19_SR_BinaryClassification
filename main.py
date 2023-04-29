@@ -23,7 +23,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     np.random.seed(SEED)
     y = np.array(classes[index])
     x = []
-    '''
+
     for i in index:
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -33,10 +33,10 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img128 = cv2.resize(img, (128, 128) , interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
         print(filename)
-        success = cv2.imwrite('64res/' + filename + '_64.png', img64)
+        cv2.imwrite('64res/' + filename + '_64.png', img64)
         cv2.imwrite('128res/' + filename + '_128.png', img128)
-        print(success)
-    '''
+
+
     # Run sr step on 64res
     test.inference('64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
@@ -113,7 +113,7 @@ BS = 32
 n = 8000
 LR = 0.0001
 label_file_train = "train_COVIDx-CT.txt"
-label_file_valid = "val_COVIDx-CT.txt"
+label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
 # fnames_train, classes_train, bboxes_train = load_labels(label_file_train)
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
