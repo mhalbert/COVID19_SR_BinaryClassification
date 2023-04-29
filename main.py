@@ -39,16 +39,19 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     '''
     # Run sr step on 64res
     test.inference('64res/')
+    # loop through SR output folder /results/SR/MyImage/FAWDN/
+    for img in os.listdir(folder_dir):
+        x.append(img)
 
+    x = np.array(x)
+    if intensify == True:
+        x= x/255
 
-   # loop through SR output folder new128res
+    print("==================================================")
+    print("Successfully created dataset. Ready for classificaiton.")
+    print("==================================================")
 
-    #x.append(img)
-
-    #x = np.array(x)
-    #if intensify == True:
-    #    x= x/255
-    #return x , y
+    return x , y
 
 # Auxillary data prep functions
 def load_labels(label_file):
@@ -76,6 +79,7 @@ def numberofclasses(classes, index):
     class1 = len((np.where(classes[index]==1))[0])
     class2 = len((np.where(classes[index]==2))[0])
     return class0  , class1, class2
+
 def dataframe_generator(train_index , valid_index , classes_train , classes_valid ):
     """Returns 1 dataframes of datasets distribution"""
     index = ["Normal" , "Pneumonia" , "COIVD -19"]
@@ -83,6 +87,7 @@ def dataframe_generator(train_index , valid_index , classes_train , classes_vali
     valid_DF = numberofclasses(classes_valid, valid_index)
     df = pd.DataFrame({'train': train_DF ,'valid' : valid_DF} , index = index)
     return df
+
 def train_index_updater(classes_train , train_index,n ):
     """Updates train_index for class balance"""
     np.random.seed(SEED)
@@ -110,11 +115,13 @@ LR = 0.0001
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "val_COVIDx-CT.txt"
 
-fnames_train, classes_train, bboxes_train = load_labels(label_file_train)
+# fnames_train, classes_train, bboxes_train = load_labels(label_file_train)
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
-train_index = index_generator(fnames_train, TRAIN_SET)
+# train_index = index_generator(fnames_train, TRAIN_SET)
 valid_index = index_generator(fnames_valid, VALID_SET)
-train_index_updated = train_index_updater(classes_train,train_index, n)
+
+# train_index_updated = train_index_updater(classes_train,train_index, n)
+
 df = dataframe_generator(train_index_updated, valid_index, classes_train, classes_valid)
 df.plot.bar(title = "Image Distribution");
 
