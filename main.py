@@ -63,7 +63,7 @@ def load_labels(label_file):
             fnames.append(fname)
             classes.append(int(cls))
             bboxes.append((int(xmin), int(ymin), int(xmax), int(ymax)))
-    fnames = ["/Users/melodyhalbert/Downloads/covidxct1/images/" + fname for fname in fnames]
+    fnames = ["/kaggle/input/covidxct/3A_images/" + fname for fname in fnames]
     fnames = np.array(fnames)
     classes = np.array(classes)
     return fnames, classes, bboxes
