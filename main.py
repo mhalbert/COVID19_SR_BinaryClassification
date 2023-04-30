@@ -65,7 +65,7 @@ def load_labels(label_file):
 
 def index_generator(fnames , SET):
     """Genrated random index of a particular class"""
-    np.random.seed(SEED)
+    #np.random.seed(SEED)
     index = np.random.randint(1,len(fnames),size = SET)
     return index
 
