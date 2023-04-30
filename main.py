@@ -129,11 +129,6 @@ valid_index = index_generator(fnames_valid, VALID_SET)
 # df.plot.bar(title = "Image Distribution");
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
-
-print('Input data type:', type(x_valid))
-print('Input data shape:', x_valid.shape)
-print('Input data:', x_valid)
-
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
 
 for i in range(len(y_valid)):
@@ -143,4 +138,10 @@ for i in range(len(y_valid)):
         y_valid[i]=1
 
 # import pretrained binary models
+modelPhase1 = keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
+modelPhase2 = keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
+y_temp  = modelPhase1.predict(x_valid)
+print(y_temp, y_valid)
+# filter out cases classified as covid according to y_temp
+#y_final = modelPhase2.predict(filtered_x_valid)
