@@ -13,7 +13,7 @@ from sklearn.metrics import accuracy_score
 import test
 
 sns.set(style = "darkgrid")
-SEED = 32
+SEED = 12
 
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
@@ -37,15 +37,11 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     # Run sr step on 64res
     test.inference('64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
-    i = 0
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
         x.append(img)
-        i += 1
-        print(i)
     x = np.array(x)
-    print(len(x), len(y))
 
     print("==================================================")
     print("Successfully created dataset. Ready for classificaiton.")
