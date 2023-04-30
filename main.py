@@ -128,7 +128,7 @@ modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/Binary
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 print("Phase 1 Inferencing")
-y_pred1  = modelPhase1.predict_binary(x_valid)
+y_pred1  = modelPhase1.predict(x_valid)
 print(len(y_pred1))
 print("Successfully Classified Covid.")
 print("==================================================")
@@ -142,7 +142,7 @@ print(x_valid_nocovid, x_valid_covid)
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
-y_pred2 = modelPhase2.predict_binary(x_valid_nocovid)
+y_pred2 = modelPhase2.predict(x_valid_nocovid)
 print(len(y_pred2))
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
@@ -159,41 +159,6 @@ print(len(x_valid_covid), len(y_valid))
 
 acc = accuracy_score(y_valid, y_pred1)
 #print(acc)
-
-#######################################
-
-from sklearn.metrics import accuracy_score
-
-# Train modelPhase1 on training data
-
-# Generate predictions for validation data using modelPhase1
-y_pred1 = modelPhase1.predict(x_valid)
-
-# Convert predicted probabilities into predicted class labels
-y_pred1 = (y_pred1 >= 0.5).astype(int)
-
-# Filter out COVID samples from validation set
-x_valid_noncovid = x_valid[y_pred1 == 0]
-y_valid_noncovid = y_valid[y_pred1 == 0]
-
-# Train modelPhase2 on non-COVID samples in validation set
-
-# Generate predictions for non-COVID validation data using modelPhase2
-y_pred2 = modelPhase2.predict(x_valid_noncovid)
-
-# Convert predicted probabilities into predicted class labels
-y_pred2 = (y_pred2 >= 0.5).astype(int)
-
-# Combine predicted class labels for COVID and non-COVID samples
-y_pred_final = np.zeros_like(y_pred1)
-y_pred_final[y_pred1 == 1] = 1
-y_pred_final[y_pred1 == 0] = y_pred2
-
-# Calculate accuracy of final predicted class labels
-accuracy = accuracy_score(y_valid, y_pred_final)
-
-print("Accuracy: {:.2f}".format(accuracy))
-##########################################
 
 #acc = accuracy_score(y_valid, y_pred1)
 #print(acc)
