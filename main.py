@@ -79,13 +79,14 @@ label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
-print(len(fnames_valid))
+print(fnames_valid)
 valid_index = index_generator(fnames_valid, VALID_SET)
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
 
 # import pretrained binary models
+print("Loading Pre-trained Models for Phase 1 & 2")
 modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
@@ -106,7 +107,6 @@ print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
 print("==================================================")
 
-print(len(y_valid), y_valid, len(y_pred_final), y_pred_final)
 # assuming normal is 0 Cap is 1
 mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_cap = x_valid_nocovid[mask]
