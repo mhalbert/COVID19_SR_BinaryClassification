@@ -137,9 +137,10 @@ for i in range(len(y_valid)):
 # import pretrained binary models
 modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
-print("==================================================")
 # inference on x_valid
 y_pred1  = modelPhase1.predict(x_valid)
+print(y_pred1.shape())
+print("==================================================")
 print("Successfully Classified Covid.")
 #filter out covid samples.
 # I assumed that 1 is covid and 0 is not but if that is wrong flip the greater then sign
@@ -154,7 +155,7 @@ mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_normal = x_valid_nocovid[mask]
 mask = np.squeeze(y_pred2 < 0.5)
 x_valid_cap = x_valid_nocovid[mask]
-print(x_valid_covid.shape(), x_valid_normal.shape(), x_valid_cap.shape())
+print(len(x_valid_covid), len(x_valid_normal), len(x_valid_cap))
 
 
 acc = accuracy_score(y_valid, )
