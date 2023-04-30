@@ -18,7 +18,6 @@ SEED = 32
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
     np.random.seed(SEED)
-    print(len(index))
     y = np.array(classes[index])
     x = []
 
@@ -32,17 +31,19 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
         #print(filename)
         cv2.imwrite('64res/' + filename + '_64.png', img64)
-        print(i)
         cv2.imwrite('128res/' + filename + '_128.png', img128)
 
 
     # Run sr step on 64res
     test.inference('64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
+    i = 0
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
         x.append(img)
+        i += 1
+        print(i)
     x = np.array(x)
     print(len(x), len(y))
 
