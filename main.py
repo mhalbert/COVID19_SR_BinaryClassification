@@ -106,7 +106,7 @@ IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
 TRAIN_SET= 46778
-VALID_SET= 1486
+VALID_SET= 500
 EPOCHS = 40
 BS = 32
 n = 8000
@@ -148,6 +148,8 @@ mask = np.squeeze(y_pred1 < 0.5)
 x_valid_nocovid = x_valid[mask]
 mask = np.squeeze(y_pred1 >= 0.5)
 x_valid_covid = x_valid[mask]
+print(y_valid)
+print(x_valid_nocovid, x_valid_covid)
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
@@ -161,8 +163,13 @@ mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_cap = x_valid_nocovid[mask]
 mask = np.squeeze(y_pred2 < 0.5)
 x_valid_normal = x_valid_nocovid[mask]
-
+# y_valid 1486
 print(len(x_valid_covid), len(y_valid))
+
+#0 normal, 1 pnemnia, 2 covid
+
+acc = accuracy_score(y_valid, y_pred1)
+#print(acc)
 
 #######################################
 
