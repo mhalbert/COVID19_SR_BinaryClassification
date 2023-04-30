@@ -42,6 +42,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         # img open then grab the image data then append that
         x.append(img)
     x = np.array(x)
+    print(len(x), len(y))
 
     print("==================================================")
     print("Successfully created dataset. Ready for classificaiton.")
