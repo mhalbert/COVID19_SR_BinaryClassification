@@ -79,7 +79,7 @@ def load_labels(label_file):
 def index_generator(fnames , SET):
     """Genrated random index of a particular class"""
     np.random.seed(SEED)
-    index = np.random.randint(1,len(fnames),size = SET)
+    index = np.random.randint(0, len(fnames), size = SET)
     return index
 
 IMG_HEIGHT = 64
@@ -91,7 +91,7 @@ label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
-#print(len(fnames_valid))
+print(len(fnames_valid))
 valid_index = index_generator(fnames_valid, VALID_SET)
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
