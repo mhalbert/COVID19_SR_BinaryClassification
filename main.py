@@ -109,7 +109,7 @@ IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
 TRAIN_SET= 46778
-VALID_SET= 6486
+VALID_SET= 1486 #6486
 EPOCHS = 40
 BS = 32
 n = 8000
@@ -138,8 +138,8 @@ for i in range(len(y_valid)):
         y_valid[i]=1
 
 # import pretrained binary models
-modelPhase1 = keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
-modelPhase2 = keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
+modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
+modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 y_temp  = modelPhase1.predict(x_valid)
 print(y_temp, y_valid)
