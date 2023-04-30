@@ -98,7 +98,7 @@ label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
 #print(len(fnames_valid))
 valid_index = index_generator(fnames_valid, VALID_SET)
-print("Length of index generator:", valid_index )
+print("Length of index generator:", len(valid_index))
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
 
