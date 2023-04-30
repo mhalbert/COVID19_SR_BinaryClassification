@@ -108,7 +108,6 @@ mask = np.squeeze(y_pred1 < 0.5)
 x_valid_nocovid = x_valid[mask]
 mask = np.squeeze(y_pred1 >= 0.5)
 x_valid_covid = x_valid[mask]
-print(y_valid)
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
@@ -117,18 +116,16 @@ print(len(y_pred2))
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
 print("==================================================")
+print(len(y_valid))
+print(y_valid)
 # assuming normal is 0 Cap is 1
 mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_cap = x_valid_nocovid[mask]
 mask = np.squeeze(y_pred2 < 0.5)
 x_valid_normal = x_valid_nocovid[mask]
-# y_valid 1486
-print(len(x_valid_covid), len(y_valid))
 
+print(len(x_valid_covid), len(x_valid_cap), len(x_valid_normal))
 #0 normal, 1 pnemnia, 2 covid
 
 acc = accuracy_score(y_valid, y_pred1)
-#print(acc)
-
-#acc = accuracy_score(y_valid, y_pred1)
 #print(acc)
