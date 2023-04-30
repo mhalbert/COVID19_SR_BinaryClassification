@@ -39,7 +39,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     print("Indices count:", len(index))
 
     # Run sr step on 64res
-    test.inference('64res/')
+    test.inference('/kaggle/working/COVID19_SR_BinaryClassification/64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
