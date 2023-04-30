@@ -97,35 +97,38 @@ for i in range(len(y_valid)):
 # import pretrained binary models
 modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
+
 # inference on x_valid
 print("Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
+y_pred1_binary = np.where(y_pred1 >= 0.5, 1, 0)  # convert to binary values using a threshold
 print(len(y_pred1))
 print("Successfully Classified Covid.")
 print("==================================================")
-# I assumed that 1 is covid and 0 is not but if that is wrong flip the greater then sign
-mask = np.squeeze(y_pred1 < 0.5)
-x_valid_nocovid = x_valid[mask]
-mask = np.squeeze(y_pred1 >= 0.5)
-x_valid_covid = x_valid[mask]
 
-#pass filtered normal/cap to phase 2
-print("Phase 2 inferencing")
+# filter out covid samples and pass filtered normal/cap to phase 2
+mask = np.squeeze(y_pred1_binary == 0)
+x_valid_nocovid = x_valid[mask]
 y_pred2 = modelPhase2.predict(x_valid_nocovid)
 print(len(y_pred2))
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
 print("==================================================")
-print(len(y_valid))
-print(y_valid)
-# assuming normal is 0 Cap is 1
+
+# assuming normal is 0, Cap is 1, and Covid is 2
+y_valid_binary = np.where(y_valid == 2, 1, y_valid)
+y_valid_binary = np.where(y_valid_binary == 0, 0, 1)
 mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_cap = x_valid_nocovid[mask]
 mask = np.squeeze(y_pred2 < 0.5)
 x_valid_normal = x_valid_nocovid[mask]
 
+print(len(y_valid_binary))
+print(y_valid_binary)
 print(len(x_valid_covid), len(x_valid_cap), len(x_valid_normal))
-#0 normal, 1 pnemnia, 2 covid
 
-acc = accuracy_score(y_valid, y_pred1)
-#print(acc)
+# calculate accuracy
+y_pred_binary = np.concatenate((np.ones(len(x_valid_covid)), np.zeros(len(x_valid_nocovid))))
+y_pred_binary = np.where(y_pred1_binary == 1, y_pred2, y_pred_binary)
+acc = accuracy_score(y_valid_binary, y_pred_binary)
+print(acc)
