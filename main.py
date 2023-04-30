@@ -7,6 +7,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.metrics import accuracy_score
 
 #import SR inferencing
 import test
@@ -136,8 +137,28 @@ for i in range(len(y_valid)):
 # import pretrained binary models
 modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
+print("==================================================")
 # inference on x_valid
-y_temp  = modelPhase1.predict(x_valid)
-mask = np.squeeze(y_temp >= 0.5)
-x_valid_filtered = x_valid[mask]
-y_final = modelPhase2.predict(x_valid_filtered)
+y_pred1  = modelPhase1.predict(x_valid)
+print("Successfully Classified Covid.")
+#filter out covid samples.
+# I assumed that 1 is covid and 0 is not but if that is wrong flip the greater then sign
+mask = np.squeeze(y_pred1 < 0.5)
+x_valid_covid = x_valid[mask]
+mask = np.squeeze(y_pred1 >= 0.5)
+x_valid_nocovid = x_valid[mask]
+#pass filtered normal/cap to phase 2
+y_pred2 = modelPhase2.predict(x_valid_nocovid)
+# assuming normal is 0 Cap is 1
+mask = np.squeeze(y_pred2 >= 0.5)
+x_valid_normal = x_valid[mask]
+mask = np.squeeze(y_pred2 < 0.5)
+x_valid_cap = x_valid[mask]
+print(x_valid_covid.shape(), x_valid_normal.shape(), x_valid_cap.shape())
+
+
+acc = accuracy_score(y_valid, )
+print(acc)
+print("Successfully Classified CAP.")
+print("Successfully Classified Normal.")
+print("==================================================")
