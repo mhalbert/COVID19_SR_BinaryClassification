@@ -99,7 +99,7 @@ print("==================================================")
 mask = y_pred1 >= 0.5
 mask_expanded = np.expand_dims(mask, axis=(1, 2, 3))
 x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
-print(x_valid_noncovid)
+print(len(x_valid_noncovid))
 #x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid) + np.expand_dims(np.array([0, 0, 0]), axis=0))
 
 #pass filtered normal/cap to phase 2
@@ -114,3 +114,9 @@ y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
 print(y_valid, y_pred_final)
 acc = accuracy_score(y_valid, y_pred_final)
 print(acc)
+
+
+
+
+
+#
