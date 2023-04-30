@@ -77,7 +77,7 @@ def numberofclasses(classes, index):
     class0 = len((np.where(classes[index]==0))[0])
     class1 = len((np.where(classes[index]==1))[0])
     class2 = len((np.where(classes[index]==2))[0])
-    return class0  , class1, class2
+    return class0, class1, class2
 
 def dataframe_generator(train_index , valid_index , classes_train , classes_valid ):
     """Returns 1 dataframes of datasets distribution"""
@@ -134,11 +134,11 @@ print("Successfully Classified Covid.")
 print("==================================================")
 # I assumed that 1 is covid and 0 is not but if that is wrong flip the greater then sign
 mask = np.squeeze(y_pred1 < 0.5)
-x_valid_nocovid = np.argmax(x_valid[mask])
+x_valid_nocovid = x_valid[mask]
 mask = np.squeeze(y_pred1 >= 0.5)
-x_valid_covid = np.argmax(x_valid[mask])
+x_valid_covid = x_valid[mask]
 print(y_valid)
-print(x_valid_nocovid, x_valid_covid)
+print(np.argmax(x_valid_nocovid), x_valid_covid)
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
