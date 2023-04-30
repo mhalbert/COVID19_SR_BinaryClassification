@@ -31,7 +31,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         #print(filename)
         cv2.imwrite('64res/' + filename + '_64.png', img64)
         cv2.imwrite('128res/' + filename + '_128.png', img128)
-    print(len(y))
+    print(len(index))
 
     # Run sr step on 64res
     test.inference('64res/')
