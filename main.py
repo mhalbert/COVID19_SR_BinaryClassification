@@ -20,9 +20,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     np.random.seed(SEED)
     y = np.array(classes[index])
     x = []
-    j = 0
     for i in index:
-        j+=1
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         x1,y1,x2,y2 = bboxes[i]
@@ -33,7 +31,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         #print(filename)
         cv2.imwrite('64res/' + filename + '_64.png', img64)
         cv2.imwrite('128res/' + filename + '_128.png', img128)
-    print(j)
+    print(len(y))
 
     # Run sr step on 64res
     test.inference('64res/')
