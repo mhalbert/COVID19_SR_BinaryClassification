@@ -37,7 +37,15 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         print(j, ' = image saved in 64res/', filename, '_64.png ')
 
     print("Indices count:", len(index))
-
+    # folder path
+    dir_path = '/kaggle/working/COVID19_SR_BinaryClassification/64res/'
+    count = 0
+    # Iterate directory
+    for path in os.listdir(dir_path):
+        # check if current path is a file
+        if os.path.isfile(os.path.join(dir_path, path)):
+            count += 1
+    print('File count:', count)
     # Run sr step on 64res
     test.inference('/kaggle/working/COVID19_SR_BinaryClassification/64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
