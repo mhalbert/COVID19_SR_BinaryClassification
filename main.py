@@ -138,33 +138,31 @@ for i in range(len(y_valid)):
 modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
-print("Phase 1 inferencing")
+print("Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
 print(len(y_pred1))
-print("==================================================")
 print("Successfully Classified Covid.")
-#filter out covid samples.
+print("==================================================")
 # I assumed that 1 is covid and 0 is not but if that is wrong flip the greater then sign
 mask = np.squeeze(y_pred1 < 0.5)
 x_valid_nocovid = x_valid[mask]
 mask = np.squeeze(y_pred1 >= 0.5)
 x_valid_covid = x_valid[mask]
-y_valid_covid = y_valid[mask]
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
 y_pred2 = modelPhase2.predict(x_valid_nocovid)
-
+print(len(y_pred1))
+print("Successfully Classified CAP.")
+print("Successfully Classified Normal.")
+print("==================================================")
 # assuming normal is 0 Cap is 1
 mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_cap = x_valid_nocovid[mask]
 mask = np.squeeze(y_pred2 < 0.5)
 x_valid_normal = x_valid_nocovid[mask]
-print(len(x_valid_covid), len(y_valid_covid))
-print(len(y_pred1), len(y_pred2), len(y_valid))
 
-acc = accuracy_score(y_valid, y_pred1)
-print(acc)
-print("Successfully Classified CAP.")
-print("Successfully Classified Normal.")
-print("==================================================")
+print(len(x_valid_covid), len(y_valid))
+
+#acc = accuracy_score(y_valid, y_pred1)
+#print(acc)
