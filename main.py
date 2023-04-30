@@ -15,7 +15,7 @@ import test
 sns.set(style = "darkgrid")
 SEED = 12
 
-def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA , intensify =False):
+def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
     np.random.seed(SEED)
     y = np.array(classes[index])
@@ -41,16 +41,13 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
         x.append(img)
-
     x = np.array(x)
-    if intensify == True:
-        x= x/255
 
     print("==================================================")
     print("Successfully created dataset. Ready for classificaiton.")
     print("==================================================")
 
-    return x , y
+    return x, y
 
 # Auxillary data prep functions
 def load_labels(label_file):
@@ -129,5 +126,5 @@ x_valid_normal = x_valid_nocovid[mask]
 print(len(x_valid_covid), len(x_valid_cap), len(x_valid_normal))
 #0 normal, 1 pnemnia, 2 covid
 
-acc = accuracy_score(y_valid, y_pred1)
+acc = accuracy_score(y_valid, y_pred1_binary)
 #print(acc)
