@@ -36,11 +36,14 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     # Run sr step on 64res
     test.inference('64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
+    j=0
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
+        j+=1
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
         x.append(img)
     x = np.array(x)
+    print(j)
 
     print("==================================================")
     print("Successfully created dataset. Ready for classificaiton.")
