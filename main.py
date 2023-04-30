@@ -98,6 +98,7 @@ print("==================================================")
 # mask values in x_valid that resulted in y_pred1 >= 0.5
 mask = y_pred1 >= 0.5
 mask_expanded = np.expand_dims(mask, axis=(1, 2, 3))
+print(mask_expanded)
 x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
 print(len(x_valid_noncovid))
 #x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid) + np.expand_dims(np.array([0, 0, 0]), axis=0))
