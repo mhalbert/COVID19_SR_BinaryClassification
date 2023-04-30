@@ -95,7 +95,9 @@ print("===> Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
 print("Successfully Classified Covid.")
 print("==================================================")
-x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid) + np.expand_dims(np.array([0, 0, 0]), axis=0))
+mask = np.where(y_pred1 >= 0.5, False, True)
+x_valid_noncovid = np.where(mask[..., None], x_valid, np.zeros_like(x_valid))
+#x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid) + np.expand_dims(np.array([0, 0, 0]), axis=0))
 
 #pass filtered normal/cap to phase 2
 print("===> Phase 2 inferencing")
