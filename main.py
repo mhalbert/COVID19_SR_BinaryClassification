@@ -18,7 +18,7 @@ SEED = 32
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
     np.random.seed(SEED)
-    print(index)
+    print(len(index))
     y = np.array(classes[index])
     x = []
 
