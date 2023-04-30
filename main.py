@@ -156,7 +156,7 @@ x_valid_normal = x_valid_nocovid[mask]
 mask = np.squeeze(y_pred2 < 0.5)
 x_valid_cap = x_valid_nocovid[mask]
 print(len(x_valid_covid), len(x_valid_normal), len(x_valid_cap))
-print(len(y_pred1), len(y_pred2))
+print(len(y_pred1), len(y_pred2), len(y_valid))
 
 acc = accuracy_score(y_valid, )
 print(acc)
