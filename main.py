@@ -84,7 +84,7 @@ valid_index = index_generator(fnames_valid, VALID_SET)
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
-
+print(y_valid)
 for i in range(len(y_valid)):
     if y_valid[i] ==1:
         y_valid[i]=0
@@ -127,4 +127,4 @@ print(len(x_valid_covid), len(x_valid_cap), len(x_valid_normal))
 #0 normal, 1 pnemnia, 2 covid
 
 acc = accuracy_score(y_valid, y_pred1_binary)
-#print(acc)
+print(acc)
