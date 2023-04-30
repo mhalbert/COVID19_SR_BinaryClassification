@@ -94,24 +94,14 @@ print("Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
 print("Successfully Classified Covid.")
 print("==================================================")
-# I assumed that 1 is covid and 0 is not but if that is wrong flip the greater then sign
-mask = np.squeeze(y_pred1 < 0.5)
-x_valid_nocovid = x_valid[mask]
-mask = np.squeeze(y_pred1 >= 0.5)
-x_valid_covid = x_valid[mask]
+x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, 0)
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
-y_pred2 = modelPhase2.predict(x_valid_nocovid)
+y_pred2 = modelPhase2.predict(x_valid_noncovid)
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
 print("==================================================")
-
-# assuming normal is 0 Cap is 1
-mask = np.squeeze(y_pred2 >= 0.5)
-x_valid_cap = x_valid_nocovid[mask]
-mask = np.squeeze(y_pred2 < 0.5)
-x_valid_normal = x_valid_nocovid[mask]
 
 #0 normal, 1 pnemnia, 2 covid
 y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
