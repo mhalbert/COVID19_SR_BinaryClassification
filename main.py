@@ -13,11 +13,12 @@ from sklearn.metrics import accuracy_score
 import test
 
 sns.set(style = "darkgrid")
-SEED = 12
+SEED = 32
 
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
     np.random.seed(SEED)
+    print(index)
     y = np.array(classes[index])
     x = []
 
@@ -74,7 +75,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 500
+VALID_SET= 200
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
