@@ -139,7 +139,7 @@ modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/Binary
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 y_pred1  = modelPhase1.predict(x_valid)
-print(y_pred1.shape())
+print(len(y_pred1))
 print("==================================================")
 print("Successfully Classified Covid.")
 #filter out covid samples.
