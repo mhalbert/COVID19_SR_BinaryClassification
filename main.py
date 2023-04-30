@@ -39,13 +39,17 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     print("Indices count:", len(index))
     # folder path
     dir_path = '/kaggle/working/COVID19_SR_BinaryClassification/64res/'
+
     count = 0
     # Iterate directory
     for path in os.listdir(dir_path):
         # check if current path is a file
         if os.path.isfile(os.path.join(dir_path, path)):
             count += 1
+        else:
+            print(path)
     print('File count:', count)
+
     # Run sr step on 64res
     test.inference('/kaggle/working/COVID19_SR_BinaryClassification/64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
@@ -91,7 +95,7 @@ label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
-print(len(fnames_valid))
+#print(len(fnames_valid))
 valid_index = index_generator(fnames_valid, VALID_SET)
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
