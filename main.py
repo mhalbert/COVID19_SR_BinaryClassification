@@ -86,15 +86,15 @@ x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=val
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
 
 # import pretrained binary models
-print("Loading Pre-trained Models for Phase 1 & 2")
+print("===>Loading Pre-trained Models for Phase 1 & 2")
 modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
-print("Phase 1 Inferencing")
+print("===>Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
 print("Successfully Classified Covid.")
 print("==================================================")
-x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, 0)
+x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid))
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
