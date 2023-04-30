@@ -105,25 +105,15 @@ def train_index_updater(classes_train , train_index,n ):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-TRAIN_SET= 46778
-VALID_SET= 500
-EPOCHS = 40
-BS = 32
-n = 8000
+VALID_SET= 50
+n = 1
 LR = 0.0001
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
-# fnames_train, classes_train, bboxes_train = load_labels(label_file_train)
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
 print(fnames_valid)
-# train_index = index_generator(fnames_train, TRAIN_SET)
 valid_index = index_generator(fnames_valid, VALID_SET)
-
-# train_index_updated = train_index_updater(classes_train,train_index, n)
-
-# df = dataframe_generator(train_index_updated, valid_index, classes_train, classes_valid)
-# df.plot.bar(title = "Image Distribution");
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
