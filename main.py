@@ -32,6 +32,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
         #print(filename)
         cv2.imwrite('64res/' + filename + '_64.png', img64)
+        print(i)
         cv2.imwrite('128res/' + filename + '_128.png', img128)
 
 
