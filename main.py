@@ -20,6 +20,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     np.random.seed(SEED)
     y = np.array(classes[index])
     x = []
+    j=0
     for i in index:
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -31,19 +32,18 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         #print(filename)
         cv2.imwrite('64res/' + filename + '_64.png', img64)
         cv2.imwrite('128res/' + filename + '_128.png', img128)
+        j+=1
+        print('j = 128-res image saved:', '128res/' + filename + '_128.png ')
     print(len(index))
 
     # Run sr step on 64res
     test.inference('64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
-    j=0
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
-        j+=1
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
         x.append(img)
     x = np.array(x)
-    print(j)
 
     print("==================================================")
     print("Successfully created dataset. Ready for classificaiton.")
