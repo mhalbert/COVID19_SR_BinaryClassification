@@ -118,7 +118,8 @@ print("Successfully Classified Normal.")
 print("==================================================")
 print(len(y_valid))
 print(y_valid)
-print(y_pred1)
+y_pred1_binary = np.where(y_pred1 > 0.5, 1, 0)
+print(y_pred1_binary)
 # assuming normal is 0 Cap is 1
 mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_cap = x_valid_nocovid[mask]
