@@ -152,7 +152,7 @@ x_valid_covid = x_valid[mask]
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
 y_pred2 = modelPhase2.predict(x_valid_nocovid)
-print(len(y_pred1))
+print(len(y_pred2))
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
 print("==================================================")
@@ -163,6 +163,41 @@ mask = np.squeeze(y_pred2 < 0.5)
 x_valid_normal = x_valid_nocovid[mask]
 
 print(len(x_valid_covid), len(y_valid))
+
+#######################################
+
+from sklearn.metrics import accuracy_score
+
+# Train modelPhase1 on training data
+
+# Generate predictions for validation data using modelPhase1
+y_pred1 = modelPhase1.predict(x_valid)
+
+# Convert predicted probabilities into predicted class labels
+y_pred1 = (y_pred1 >= 0.5).astype(int)
+
+# Filter out COVID samples from validation set
+x_valid_noncovid = x_valid[y_pred1 == 0]
+y_valid_noncovid = y_valid[y_pred1 == 0]
+
+# Train modelPhase2 on non-COVID samples in validation set
+
+# Generate predictions for non-COVID validation data using modelPhase2
+y_pred2 = modelPhase2.predict(x_valid_noncovid)
+
+# Convert predicted probabilities into predicted class labels
+y_pred2 = (y_pred2 >= 0.5).astype(int)
+
+# Combine predicted class labels for COVID and non-COVID samples
+y_pred_final = np.zeros_like(y_pred1)
+y_pred_final[y_pred1 == 1] = 1
+y_pred_final[y_pred1 == 0] = y_pred2
+
+# Calculate accuracy of final predicted class labels
+accuracy = accuracy_score(y_valid, y_pred_final)
+
+print("Accuracy: {:.2f}".format(accuracy))
+##########################################
 
 #acc = accuracy_score(y_valid, y_pred1)
 #print(acc)
