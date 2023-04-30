@@ -73,35 +73,6 @@ def index_generator(fnames , SET):
     index = np.random.randint(1,len(fnames),size = SET)
     return index
 
-def numberofclasses(classes, index):
-    class0 = len((np.where(classes[index]==0))[0])
-    class1 = len((np.where(classes[index]==1))[0])
-    class2 = len((np.where(classes[index]==2))[0])
-    return class0, class1, class2
-
-def dataframe_generator(train_index , valid_index , classes_train , classes_valid ):
-    """Returns 1 dataframes of datasets distribution"""
-    index = ["Normal" , "Pneumonia" , "COIVD -19"]
-    train_DF = numberofclasses(classes_train, train_index)
-    valid_DF = numberofclasses(classes_valid, valid_index)
-    df = pd.DataFrame({'train': train_DF ,'valid' : valid_DF} , index = index)
-    return df
-
-def train_index_updater(classes_train , train_index,n ):
-    """Updates train_index for class balance"""
-    np.random.seed(SEED)
-    class0_train = np.where(classes_train[train_index]==0)[0]
-    class1_train = np.where(classes_train[train_index]==1)[0]
-    class2_train = np.where(classes_train[train_index]==2)[0]
-    class0 =train_index[class0_train]
-    class1 = train_index[class1_train]
-    np.random.seed(SEED)
-    class22 = np.random.choice(class2_train , n)
-    class2 = train_index[class22]
-    train_index_updated = np.concatenate((class0 , class1 , class2))
-    np.random.shuffle(train_index_updated)
-    return train_index_updated
-
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
