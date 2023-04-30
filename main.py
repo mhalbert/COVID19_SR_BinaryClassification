@@ -73,7 +73,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 50
+VALID_SET= 5000
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
@@ -96,12 +96,9 @@ y_pred1  = modelPhase1.predict(x_valid)
 print("Successfully Classified Covid.")
 print("==================================================")
 # mask values in x_valid that resulted in y_pred1 >= 0.5
-print(y_pred1)
 mask = y_pred1 >= 0.5
 mask_expanded = np.expand_dims(mask, axis=(1, 2))
-print(mask_expanded)
 x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
-print(len(x_valid_noncovid))
 #x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid) + np.expand_dims(np.array([0, 0, 0]), axis=0))
 
 #pass filtered normal/cap to phase 2
