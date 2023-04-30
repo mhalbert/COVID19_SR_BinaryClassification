@@ -11,12 +11,8 @@ import seaborn as sns
 #import SR inferencing
 import test
 
-
-
-
 sns.set(style = "darkgrid")
 SEED = 12
-
 
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA , intensify =False):
     """Constructs and splits X and Y for training , validtion and test"""
@@ -142,6 +138,5 @@ modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/Binary
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 y_temp  = modelPhase1.predict(x_valid)
-print(y_temp, y_valid)
-# filter out cases classified as covid according to y_temp
-#y_final = modelPhase2.predict(filtered_x_valid)
+x_valid_filtered = x_valid[y_temp >= 0.5]
+y_final = modelPhase2.predict(x_valid_filtered)
