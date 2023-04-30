@@ -104,7 +104,7 @@ def train_index_updater(classes_train , train_index,n ):
 
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
-DIM = (IMG_HEIGHT, 6IMG_WIDTH4)
+DIM = (IMG_HEIGHT, IMG_WIDTH)
 VALID_SET= 500
 
 label_file_train = "train_COVIDx-CT.txt"
