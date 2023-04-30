@@ -84,12 +84,6 @@ valid_index = index_generator(fnames_valid, VALID_SET)
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
-print(y_valid)
-for i in range(len(y_valid)):
-    if y_valid[i] ==1:
-        y_valid[i]=0
-    if y_valid[i]==2:
-        y_valid[i]=1
 
 # import pretrained binary models
 modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
@@ -97,7 +91,8 @@ modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/Binary
 # inference on x_valid
 print("Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
-print(len(y_pred1))
+y_pred_final = np.where(y_pred1 > 0.5, 2, 0)
+
 print("Successfully Classified Covid.")
 print("==================================================")
 # I assumed that 1 is covid and 0 is not but if that is wrong flip the greater then sign
@@ -109,7 +104,7 @@ x_valid_covid = x_valid[mask]
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
 y_pred2 = modelPhase2.predict(x_valid_nocovid)
-print(len(y_pred2))
+y_pred_final.where(y_pred2 > 0.5, 1, 0)
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
 print("==================================================")
@@ -126,5 +121,5 @@ x_valid_normal = x_valid_nocovid[mask]
 print(len(x_valid_covid), len(x_valid_cap), len(x_valid_normal))
 #0 normal, 1 pnemnia, 2 covid
 
-acc = accuracy_score(y_valid, y_pred1_binary)
+acc = accuracy_score(y_valid, y_pred_final)
 print(acc)
