@@ -33,7 +33,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         cv2.imwrite('64res/' + filename + '_64.png', img64)
         cv2.imwrite('128res/' + filename + '_128.png', img128)
         j+=1
-        print(j + ' = 128-res image saved:', '128res/' + filename + '_128.png ')
+        print(j, ' = 128-res image saved:', '128res/', filename, '_128.png ')
     print(len(index))
 
     # Run sr step on 64res
