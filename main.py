@@ -151,9 +151,9 @@ x_valid_nocovid = x_valid[mask]
 y_pred2 = modelPhase2.predict(x_valid_nocovid)
 # assuming normal is 0 Cap is 1
 mask = np.squeeze(y_pred2 >= 0.5)
-x_valid_normal = x_valid[mask]
+x_valid_normal = x_valid_nocovid[mask]
 mask = np.squeeze(y_pred2 < 0.5)
-x_valid_cap = x_valid[mask]
+x_valid_cap = x_valid_nocovid[mask]
 print(x_valid_covid.shape(), x_valid_normal.shape(), x_valid_cap.shape())
 
 
