@@ -95,7 +95,9 @@ print("===> Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
 print("Successfully Classified Covid.")
 print("==================================================")
-mask = np.where(y_pred1 >= 0.5, False, True)
+# mask values in x_valid that resulted in y_pred1 >= 0.5
+mask = y_pred1 >= 0.5
+mask = np.squeeze(mask, axis=-1)  # remove extra dimension
 x_valid_noncovid = np.where(mask[..., None], x_valid, np.zeros_like(x_valid))
 #x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid) + np.expand_dims(np.array([0, 0, 0]), axis=0))
 
