@@ -109,7 +109,6 @@ x_valid_nocovid = x_valid[mask]
 mask = np.squeeze(y_pred1 >= 0.5)
 x_valid_covid = x_valid[mask]
 print(y_valid)
-print(np.argmax(x_valid_nocovid), x_valid_covid)
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
