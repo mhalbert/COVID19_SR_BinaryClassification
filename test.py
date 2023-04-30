@@ -37,7 +37,11 @@ def inference(img_path):
 
     # loading dataset
     test_set = create_dataset(img_path)
+    print("********")
+    print("Test.py dataset:", len(test_set))
+    print("********")
     test_loader = create_dataloader(test_set)
+    print("Test.py dataloader:", len(test_loader))
     test_loaders.append(test_loader)
     print('===> Test Dataset: [%s]   Number of images: [%d]' % (test_set.name(), len(test_set)))
     bm_names.append(test_set.name())
