@@ -149,6 +149,7 @@ mask = np.squeeze(y_pred1 < 0.5)
 x_valid_nocovid = x_valid[mask]
 mask = np.squeeze(y_pred1 >= 0.5)
 x_valid_covid = x_valid[mask]
+y_valid_covid = y_valid[mask]
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
@@ -159,7 +160,7 @@ mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_cap = x_valid_nocovid[mask]
 mask = np.squeeze(y_pred2 < 0.5)
 x_valid_normal = x_valid_nocovid[mask]
-print(len(x_valid_covid), len(x_valid_normal), len(x_valid_cap))
+print(len(x_valid_covid), len(y_valid_covid))
 print(len(y_pred1), len(y_pred2), len(y_valid))
 
 acc = accuracy_score(y_valid, y_pred1)
