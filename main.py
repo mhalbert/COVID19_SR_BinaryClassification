@@ -104,10 +104,9 @@ def train_index_updater(classes_train , train_index,n ):
 
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
-DIM = (IMG_HEIGHT, IMG_WIDTH)
+DIM = (IMG_HEIGHT, 6IMG_WIDTH4)
 VALID_SET= 500
-n = 1
-LR = 0.0001
+
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
