@@ -105,7 +105,7 @@ def train_index_updater(classes_train , train_index,n ):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 50
+VALID_SET= 500
 n = 1
 LR = 0.0001
 label_file_train = "train_COVIDx-CT.txt"
@@ -129,21 +129,21 @@ modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/Binary
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 print("Phase 1 Inferencing")
-y_pred1  = modelPhase1.predict(x_valid)
+y_pred1  = modelPhase1.predict_binary(x_valid)
 print(len(y_pred1))
 print("Successfully Classified Covid.")
 print("==================================================")
 # I assumed that 1 is covid and 0 is not but if that is wrong flip the greater then sign
 mask = np.squeeze(y_pred1 < 0.5)
-x_valid_nocovid = x_valid[mask]
+x_valid_nocovid = np.argmax(x_valid[mask])
 mask = np.squeeze(y_pred1 >= 0.5)
-x_valid_covid = x_valid[mask]
+x_valid_covid = np.argmax(x_valid[mask])
 print(y_valid)
 print(x_valid_nocovid, x_valid_covid)
 
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
-y_pred2 = modelPhase2.predict(x_valid_nocovid)
+y_pred2 = modelPhase2.predict_binary(x_valid_nocovid)
 print(len(y_pred2))
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
