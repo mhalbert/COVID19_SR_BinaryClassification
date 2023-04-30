@@ -32,9 +32,11 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         #print(filename)
         cv2.imwrite('64res/' + filename + '_64.png', img64)
         cv2.imwrite('128res/' + filename + '_128.png', img128)
-        j+=1
-        print(j, ' = 128-res image saved:128res/', filename, '_128.png ')
-    print(len(index))
+        #j+=1
+        #print(j, ' = 128-res image saved:128res/', filename, '_128.png ')
+        print(i, ' = 64-res image saved in 64res/', filename, '_64.png ')
+    
+    print("Indices count:", len(index))
 
     # Run sr step on 64res
     test.inference('64res/')
@@ -46,7 +48,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     x = np.array(x)
 
     print("==================================================")
-    print("Successfully created dataset. Ready for classificaiton.")
+    print("Successfully created dataset. Ready for classification.")
     print("==================================================")
 
     return x, y
@@ -69,7 +71,7 @@ def load_labels(label_file):
 def index_generator(fnames , SET):
     """Genrated random index of a particular class"""
     np.random.seed(SEED)
-    index = np.random.randint(0,len(fnames),size = SET)
+    index = np.random.randint(1,len(fnames),size = SET)
     return index
 
 IMG_HEIGHT = 64
