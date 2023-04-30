@@ -104,14 +104,11 @@ x_valid_covid = x_valid[mask]
 #pass filtered normal/cap to phase 2
 print("Phase 2 inferencing")
 y_pred2 = modelPhase2.predict(x_valid_nocovid)
-y_pred_final.where(y_pred2 > 0.5, 1, 0)
+y_pred_final = np.where(y_pred2 > 0.5, 1, 0)
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
 print("==================================================")
-print(len(y_valid))
-print(y_valid)
-y_pred1_binary = np.where(y_pred1 > 0.5, 1, 0)
-print(y_pred1_binary)
+print(len(y_valid), y_valid, len(y_pred_final), y_pred_final)
 # assuming normal is 0 Cap is 1
 mask = np.squeeze(y_pred2 >= 0.5)
 x_valid_cap = x_valid_nocovid[mask]
