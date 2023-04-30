@@ -75,13 +75,13 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 200
+VALID_SET= 500
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
-print(len(fnames_valid))
+#print(len(fnames_valid))
 valid_index = index_generator(fnames_valid, VALID_SET)
 
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
@@ -112,7 +112,7 @@ print("==================================================")
 
 #0 normal, 1 pnemnia, 2 covid
 y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
-print(y_valid, y_pred_final)
+#print(y_valid, y_pred_final)
 acc = accuracy_score(y_valid, y_pred_final)
 print(acc)
 
