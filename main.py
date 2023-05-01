@@ -90,12 +90,12 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     #print('Files in 64res/:', count)
 
     # Run sr step on 64res
-    test.inference('/kaggle/working/64res/')
+    #test.inference('/kaggle/working/64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     i=0
     tempLabels = []
-    for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
-        img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
+    for filename in os.listdir('/kaggle/working/128res/'):
+        img=cv2.imread(os.path.join('/kaggle/working/128res/', filename))
         # img open then grab the image data then append that
         x.append(img)
         classLabel = int(filename.split('.png')[0][-1])
@@ -155,9 +155,7 @@ print("===> Loading Pre-trained Model for Phase 2")
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 print("===> Phase 1 Inferencing")
-y_valid_array = np.array(y_valid)
 y_pred1  = modelPhase1.predict(x_valid)
-cm = confusion_matrix(y_valid_array, y_pred1)
 print("Successfully Classified Covid.")
 print("==================================================")
 # mask values in x_valid that resulted in y_pred1 >= 0.5
