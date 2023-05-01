@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.metrics import accuracy_score
+import matplotlib.image as mpimg
 
 #import SR inferencing
 import test
@@ -59,17 +60,22 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     # Run sr step on 64res
     test.inference('/kaggle/working/64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
+    i=0
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
+        print(filename)
+        imgplot = plt.imshow(img)
+        plt.show()
         x.append(img)
+        print(y[i])
+        i = i + 1
     x = np.array(x)
 
     print("==================================================")
     print("Successfully created dataset. Ready for classification.")
     print("==================================================")
 
-    print(x)
     print(y)
     return x, y
 
