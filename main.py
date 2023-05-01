@@ -30,7 +30,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         x1,y1,x2,y2 = bboxes[i]
         img = img[y1:y2,x1:x2]
         img64 = cv2.resize(img, dim_size , interpolation = interpolation)
-        img128 = cv2.resize(img, (256,256), interpolation = interpolation)
+        img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
 
         try:
@@ -91,10 +91,10 @@ def index_generator(fnames , SET):
     index = random.sample(range(len(fnames)), SET)
     return index
 
-IMG_HEIGHT = 128
-IMG_WIDTH = 128
+IMG_HEIGHT = 64
+IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 500
+VALID_SET= 5000
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
