@@ -174,14 +174,14 @@ print("==================================================")
 #0 normal, 1 pnemnia, 2 covid
 y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
 
-print(y_valid, y_pred_final)
+# print(y_valid, y_pred_final)
 # Compute avg accuracy score
 acc = accuracy_score(y_valid, y_pred_final)
 
 # Compute confusion matrix
 cm = confusion_matrix(y_valid, y_pred_final)
 # Define the labels for each class
-class_names = ['Class 1', 'Class 2', 'Class 3']
+class_names = ['Normal', 'Covid-19', 'Cap']
 
 # Define the title of the confusion matrix
 title = 'Confusion Matrix'
