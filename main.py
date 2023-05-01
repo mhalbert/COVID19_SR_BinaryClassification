@@ -29,6 +29,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     x = []
     for i in index:
+        print(i)
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         x1,y1,x2,y2 = bboxes[i]
@@ -37,38 +38,38 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
 
-        if os.path.exists('/kaggle/working/64res/'):
-            shutil.rmtree(dir)
-            os.makedirs(dir)
+        dir64 = '/kaggle/working/64res/'
+        dir128 = '/kaggle/working/128res/'
+        if os.path.exists(dir64):
+            shutil.rmtree(dir64)
+            os.makedirs(dir64)
 
-        if os.path.exists('/kaggle/working/128res/'):
-            shutil.rmtree(dir)
-            os.makedirs(dir)
+        if os.path.exists(dir128):
+            shutil.rmtree(dir128)
+            os.makedirs(dir128)
 
         try:
-            cv2.imwrite('/kaggle/working/64res/' + filename + '_64.png', img64)
+            cv2.imwrite(dir64, filename + '_64.png', img64)
         except:
             print("Error! Didn't write 64x64: ", filename )
         try:
-            cv2.imwrite('/kaggle/working/128res/' + filename + '_128.png', img128)
+            cv2.imwrite(dir128, filename + '_128.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
 
-    # folder path
-    dir_path = '/kaggle/working/64res/'
 
     count = 0
     # Iterate directory
-    for path in os.listdir(dir_path):
+    for path in os.listdir(dir64):
         # check if current path is a file
-        if os.path.isfile(os.path.join(dir_path, path)):
+        if os.path.isfile(os.path.join(dir64, path)):
             count += 1
         else:
             print(path)
     print('Files in 64res/:', count)
 
     # Run sr step on 64res
-    test.inference('/kaggle/working/64res/')
+    test.inference(dir64)
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     i=0
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
