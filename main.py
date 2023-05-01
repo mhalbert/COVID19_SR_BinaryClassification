@@ -41,6 +41,9 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
             cv2.imwrite('/kaggle/working/128res/' + filename + '_128.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
+        #print(j, ' = 128-res image saved:128res/', filename, '_128.png ')
+        print(j, ' = ', i, ' image saved in 64res/', filename, '_64.png ')
+        j+=1
 
     # folder path
     dir_path = '/kaggle/working/64res/'
