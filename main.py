@@ -136,7 +136,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 500
+VALID_SET= 50
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
@@ -155,7 +155,9 @@ print("===> Loading Pre-trained Model for Phase 2")
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 print("===> Phase 1 Inferencing")
-dense = modelPhase1.evaluate(x_valid, y_valid)
+x_valid_list = x_valid.tolist()
+y_valid_list = y_valid.tolist()
+dense = modelPhase1.evaluate(x_valid_list, y_valid_list)
 y_pred1  = modelPhase1.predict(x_valid)
 print("Successfully Classified Covid.")
 print("==================================================")
