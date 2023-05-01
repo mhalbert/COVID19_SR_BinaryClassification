@@ -97,13 +97,12 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         # img open then grab the image data then append that
         x.append(img)
         print(filename)
-        classLabel = filename.split('.')[0][-1]
+        classLabel = filename.split('.png')[0][-1]
         print(classLabel)
         tempLabels.append(classLabel)
         print(y[i])
         i += 1
     x = np.array(x)
-
     # here take off the class ext and y.append() !!!!!
 
     print("==================================================")
