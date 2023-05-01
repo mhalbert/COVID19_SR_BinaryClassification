@@ -27,11 +27,8 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     cap = "_1"
     covid = "_2"
 
-    #np.random.seed(SEED) ?
     y = np.array(classes[index])
-    #print(index, y)
 
-    # we can clean up these paths if we want
     if os.path.exists('/kaggle/working/64res/'):
         shutil.rmtree('/kaggle/working/64res/')
         os.makedirs('/kaggle/working/64res/')
@@ -58,7 +55,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img64 = cv2.resize(img, dim_size , interpolation = interpolation)
         img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
-        #print(y[label_index])
+
         if y[label_index] == 0:
             class_ext = normal
         elif y[label_index] == 1:
@@ -90,7 +87,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     #print('Files in 64res/:', count)
 
     # Run sr step on 64res
-    #test.inference('/kaggle/working/64res/')
+    test.inference('/kaggle/working/64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     i=0
     tempLabels = []
