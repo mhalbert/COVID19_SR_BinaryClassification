@@ -34,15 +34,12 @@ def inference(img_path):
     # create test dataloader
     bm_names = []
     test_loaders = []
-    need_HR = True
+    need_HR = False
 
     # loading dataset
     test_set = create_dataset(img_path)
-    print("********")
-    print("Test.py dataset:", len(test_set))
-    print("********")
+
     test_loader = create_dataloader(test_set)
-    print("Test.py dataloader:", len(test_loader))
     test_loaders.append(test_loader)
     print('===> Test Dataset: [%s]   Number of images: [%d]' % (test_set.name(), len(test_set)))
     bm_names.append(test_set.name())
@@ -63,8 +60,6 @@ def inference(img_path):
         total_psnr = []
         total_ssim = []
         total_time = []
-
-        need_HR = True
 
         for iter, batch in enumerate(test_loader):
             solver.feed_data(batch, need_HR=need_HR)
