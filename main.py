@@ -7,6 +7,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 import random
 import matplotlib.pyplot as plt
+import pandas as pd
 import seaborn as sns
 from sklearn.metrics import accuracy_score
 
@@ -68,6 +69,10 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     print("Successfully created dataset. Ready for classification.")
     print("==================================================")
 
+    temp_x = pd.DataFrame(x)
+    print(temp_x)
+    temp_y = pd.DataFrame(y)
+    print(temp_y)
     return x, y
 
 # Auxillary data prep functions
