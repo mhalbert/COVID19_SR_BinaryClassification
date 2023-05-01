@@ -57,9 +57,9 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
         print(y[label_index])
-        if y[label_index] == '0':
+        if y[label_index] == 0:
             class_ext = normal
-        elif y[label_index] == '1':
+        elif y[label_index] == 1:
             class_ext = cap
         else:
             class_ext = covid
