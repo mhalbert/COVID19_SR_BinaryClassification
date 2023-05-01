@@ -24,7 +24,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     x = []
     j=0
-    for i in index+1:
+    for i in index:
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         x1,y1,x2,y2 = bboxes[i]
@@ -91,7 +91,7 @@ def load_labels(label_file):
 def index_generator(fnames , SET):
     """Genrated random index of a particular class"""
     np.random.seed(SEED)
-    index = np.random.randint(0, len(fnames), size = SET)
+    index = np.random.sample(range(len(fnames)), size = SET)
     return index
 
 IMG_HEIGHT = 64
