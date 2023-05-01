@@ -69,8 +69,8 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     print("Successfully created dataset. Ready for classification.")
     print("==================================================")
 
-    print(temp_x)
-    print(temp_y)
+    print(x)
+    print(y)
     return x, y
 
 # Auxillary data prep functions
