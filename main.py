@@ -168,7 +168,7 @@ x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
 
 #pass filtered normal/cap to phase 2
 print("===> Phase 2 inferencing")
-inception = modelPhase2.evaluate(x_valid, y_valid)
+inception = modelPhase2.evaluate(x_valid, y_valid_array)
 y_pred2 = modelPhase2.predict(x_valid_noncovid)
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
