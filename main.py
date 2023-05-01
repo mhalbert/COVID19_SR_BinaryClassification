@@ -159,7 +159,7 @@ y_pred1  = modelPhase1.predict(x_valid)
 print("Successfully Classified Covid.")
 print("==================================================")
 # mask values in x_valid that resulted in y_pred1 >= 0.5
-mask = y_pred1 >= 0.5
+mask = y_pred1 < 0.5
 mask_expanded = np.expand_dims(mask, axis=(1, 2))
 x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
 
