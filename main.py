@@ -42,9 +42,13 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         if os.path.exists(dir64):
             shutil.rmtree(dir64)
             os.makedirs(dir64)
+        else:
+            os.makedirs(dir64)
 
         if os.path.exists(dir128):
             shutil.rmtree(dir128)
+            os.makedirs(dir128)
+        else:
             os.makedirs(dir128)
 
         try:
