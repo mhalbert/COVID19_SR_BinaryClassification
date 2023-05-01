@@ -136,7 +136,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 10
+VALID_SET= 50
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
@@ -180,7 +180,43 @@ acc = accuracy_score(y_valid, y_pred_final)
 
 # Compute confusion matrix
 cm = confusion_matrix(y_valid, y_pred_final)
-print(cm)
+# Define the labels for each class
+class_names = ['Class 1', 'Class 2', 'Class 3']
+
+# Define the title of the confusion matrix
+title = 'Confusion Matrix'
+
+# Define the axis labels
+xlabel = 'Predicted label'
+ylabel = 'True label'
+
+# Define the colors for the confusion matrix
+cmap = 'Blues'
+
+# Normalize the confusion matrix
+normalized_cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+
+# Print the confusion matrix
+print(title)
+print()
+print(np.array2string(cm, separator=', ',
+                       formatter={'int': lambda x: f'{x:4d}'}))
+
+# Print the normalized confusion matrix
+print()
+print('Normalized confusion matrix')
+print(np.array2string(normalized_cm, separator=', ',
+                       formatter={'float': lambda x: f'{x:5.2f}'}))
+
+# Print the classification report
+print()
+print('Classification Report')
+print('---------------------')
+for i, class_name in enumerate(class_names):
+    precision = cm[i,i] / cm[:,i].sum()
+    recall = cm[i,i] / cm[i,:].sum()
+    f1_score = 2 * (precision * recall) / (precision + recall)
+    print(f'{class_name:<8} precision: {precision:.2f} recall: {recall:.2f} f1-score: {f1_score:.2f}')
 
 print(acc)
 
