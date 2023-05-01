@@ -134,12 +134,13 @@ def create_dataset(data_path):
     mode = "LR"                     # set if testing, "LRHR" if training and evaluating
     if mode == 'LR':
         from data.LR_dataset import LRDataset as D
+        dataset = D(data_path)
     elif mode == 'LRHR':
         from data.LRHR_dataset import LRHRDataset as D
+        dataset = D(data_path,'/kaggle/working/128res/')
     else:
         raise NotImplementedError("Dataset [%s] is not recognized." % mode)
-
-    dataset = D(data_path)    # pass path
+    # pass path
     print('===> [%s] Dataset is created.' % (mode))
     return dataset
 
