@@ -64,7 +64,7 @@ def inference(img_path):
         total_ssim = []
         total_time = []
 
-        need_HR = True
+        need_HR = False
 
         for iter, batch in enumerate(test_loader):
             solver.feed_data(batch, need_HR=need_HR)
