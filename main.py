@@ -23,7 +23,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     """Constructs and splits X and Y for training , validtion and test"""
     np.random.seed(SEED)
     y = np.array(classes[index])
-    print(classes[index])
+    print(index, classes[index])
     print('Length of classes array: ', len(y))
     print('Length of index array: ', len(index))
 
@@ -45,7 +45,6 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     x = []
     for i in index:
-        print("New Image!")
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         x1,y1,x2,y2 = bboxes[i]
