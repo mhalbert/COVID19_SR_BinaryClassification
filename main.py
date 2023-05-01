@@ -30,14 +30,14 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     if os.path.exists('/kaggle/working/64res/'):
             shutil.rmtree('/kaggle/working/64res/')
             os.makedirs('/kaggle/working/64res/')
-        else:
-            os.makedirs('/kaggle/working/64res/')
+    else:
+        os.makedirs('/kaggle/working/64res/')
 
-        if os.path.exists('/kaggle/working/128res/'):
-            shutil.rmtree('/kaggle/working/128res/')
-            os.makedirs('/kaggle/working/128res/')
-        else:
-            os.makedirs('/kaggle/working/128res/')
+    if os.path.exists('/kaggle/working/128res/'):
+        shutil.rmtree('/kaggle/working/128res/')
+        os.makedirs('/kaggle/working/128res/')
+    else:
+        os.makedirs('/kaggle/working/128res/')
 
     x = []
     for i in index:
