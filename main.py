@@ -24,7 +24,6 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     print('Length of index array: ', len(index))
 
     x = []
-    j=0
     for i in index:
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -42,9 +41,6 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
             cv2.imwrite('/kaggle/working/128res/' + filename + '_128.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
-        #print(j, ' = 128-res image saved:128res/', filename, '_128.png ')
-        #print(j, ' = image saved in 64res/', filename, '_64.png ')
-        j+=1
 
     # folder path
     dir_path = '/kaggle/working/64res/'
@@ -98,7 +94,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 500
+VALID_SET= 5000
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
