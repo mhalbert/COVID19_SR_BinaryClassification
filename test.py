@@ -78,7 +78,7 @@ def inference(img_path):
             visuals = solver.get_current_visual(need_HR=need_HR)
             sr_list.append(visuals['SR'])
 
-            calculate PSNR/SSIM metrics on Python
+            #calculate PSNR/SSIM metrics on Python
             if need_HR:
                 psnr, ssim = util.calc_metrics(visuals['SR'], visuals['HR'], crop_border=scale)
                 total_psnr.append(psnr)
