@@ -34,6 +34,7 @@ def inference(img_path):
     # create test dataloader
     bm_names = []
     test_loaders = []
+    need_HR = True
 
     # loading dataset
     test_set = create_dataset(img_path)
@@ -77,29 +78,29 @@ def inference(img_path):
             visuals = solver.get_current_visual(need_HR=need_HR)
             sr_list.append(visuals['SR'])
 
-            # calculate PSNR/SSIM metrics on Python
-            #if need_HR:
-            #    psnr, ssim = util.calc_metrics(visuals['SR'], visuals['HR'], crop_border=scale)
-            #    total_psnr.append(psnr)
-            #    total_ssim.append(ssim)
-            #    path_list.append(os.path.basename(batch['HR_path'][0]).replace('HR', model_name))
-            #    print("[%d/%d] %s || PSNR(dB)/SSIM: %.2f/%.4f || Timer: %.4f sec ." % (iter+1, len(test_loader),
-            #                                                                           os.path.basename(batch['LR_path'][0]),
-            #                                                                           psnr, ssim,
-            #                                                                            (t1 - t0)))
-            #else:
-            path_list.append(os.path.basename(batch['LR_path'][0]))
-            print("[%d/%d] %s || Timer: %.4f sec ." % (iter + 1, len(test_loader),
+            calculate PSNR/SSIM metrics on Python
+            if need_HR:
+                psnr, ssim = util.calc_metrics(visuals['SR'], visuals['HR'], crop_border=scale)
+                total_psnr.append(psnr)
+                total_ssim.append(ssim)
+                path_list.append(os.path.basename(batch['HR_path'][0]).replace('HR', model_name))
+                print("[%d/%d] %s || PSNR(dB)/SSIM: %.2f/%.4f || Timer: %.4f sec ." % (iter+1, len(test_loader),
+                                                                                       os.path.basename(batch['LR_path'][0]),
+                                                                                       psnr, ssim,
+                                                                                        (t1 - t0)))
+            else:
+                path_list.append(os.path.basename(batch['LR_path'][0]))
+                print("[%d/%d] %s || Timer: %.4f sec ." % (iter + 1, len(test_loader),
                                                        os.path.basename(batch['LR_path'][0]),
                                                        (t1 - t0)))
 
-        #if need_HR:
-        #    print("---- Average PSNR(dB) /SSIM /Speed(s) for [%s] ----" % bm)
-        #    print("PSNR: %.2f      SSIM: %.4f      Speed: %.4f" % (sum(total_psnr)/len(total_psnr),
-        #                                                          sum(total_ssim)/len(total_ssim),
-        #                                                          sum(total_time)/len(total_time)))
-        #else:
-        print("---- Average Speed(s) for [%s] is %.4f sec ----" % (bm,
+        if need_HR:
+            print("---- Average PSNR(dB) /SSIM /Speed(s) for [%s] ----" % bm)
+            print("PSNR: %.2f      SSIM: %.4f      Speed: %.4f" % (sum(total_psnr)/len(total_psnr),
+                                                                  sum(total_ssim)/len(total_ssim),
+                                                                  sum(total_time)/len(total_time)))
+        else:
+            print("---- Average Speed(s) for [%s] is %.4f sec ----" % (bm,
                                                                       sum(total_time)/len(total_time)))
 
         # save SR results for further evaluation on MATLAB
