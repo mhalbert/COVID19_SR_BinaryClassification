@@ -96,11 +96,10 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
         x.append(img)
-        print(filename)
+        print(filename, classLabel)
         classLabel = filename.split('.png')[0][-1]
-        print(classLabel)
         tempLabels.append(classLabel)
-        print(y[i])
+        #print(y[i])
         i += 1
     x = np.array(x)
     # here take off the class ext and y.append() !!!!!
@@ -172,7 +171,7 @@ print("==================================================")
 
 #0 normal, 1 pnemnia, 2 covid
 y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
-#print(y_valid, y_pred_final)
+print(y_valid, y_pred_final)
 acc = accuracy_score(y_valid, y_pred_final)
 print(acc)
 
