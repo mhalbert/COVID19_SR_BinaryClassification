@@ -27,18 +27,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     print('Length of classes array: ', len(y))
     print('Length of index array: ', len(index))
 
-    x = []
-    for i in index:
-        print("New Image!")
-        img = cv2.imread(filepath[i])
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        x1,y1,x2,y2 = bboxes[i]
-        img = img[y1:y2,x1:x2]
-        img64 = cv2.resize(img, dim_size , interpolation = interpolation)
-        img128 = cv2.resize(img, (128,128), interpolation = interpolation)
-        filename, _ = os.path.splitext(os.path.basename(filepath[i]))
-
-        if os.path.exists('/kaggle/working/64res/'):
+    if os.path.exists('/kaggle/working/64res/'):
             shutil.rmtree('/kaggle/working/64res/')
             os.makedirs('/kaggle/working/64res/')
         else:
@@ -49,6 +38,17 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
             os.makedirs('/kaggle/working/128res/')
         else:
             os.makedirs('/kaggle/working/128res/')
+
+    x = []
+    for i in index:
+        print("New Image!")
+        img = cv2.imread(filepath[i])
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        x1,y1,x2,y2 = bboxes[i]
+        img = img[y1:y2,x1:x2]
+        img64 = cv2.resize(img, dim_size , interpolation = interpolation)
+        img128 = cv2.resize(img, (128,128), interpolation = interpolation)
+        filename, _ = os.path.splitext(os.path.basename(filepath[i]))
 
         try:
             cv2.imwrite('/kaggle/working/64res/' + filename + '_64.png', img64)
