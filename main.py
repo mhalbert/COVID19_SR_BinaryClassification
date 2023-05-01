@@ -39,7 +39,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
 
         dir64 = '/kaggle/working/64res/'
-        dir128 = '/kaggle/working/128res/'
+        dir128 = '/kaggle/working/64res/'
         if os.path.exists(dir64):
             shutil.rmtree(dir64)
             os.makedirs(dir64)
@@ -49,11 +49,11 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
             os.makedirs(dir128)
 
         try:
-            cv2.imwrite(dir64 + filename + '_64.png', img64)
+            cv2.imwrite('/kaggle/working/64res/' + filename + '_64.png', img64)
         except:
             print("Error! Didn't write 64x64: ", filename )
         try:
-            cv2.imwrite(dir128 + filename + '_128.png', img128)
+            cv2.imwrite('/kaggle/working/64res/' + filename + '_128.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
 
@@ -72,6 +72,11 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     test.inference(dir64)
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     i=0
+
+    if os.path.exists('/kaggle/working/MyImage/FAWDN/x2'):
+            shutil.rmtree('/kaggle/working/MyImage/FAWDN/x2')
+            os.makedirs('/kaggle/working/MyImage/FAWDN/x2')
+
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
