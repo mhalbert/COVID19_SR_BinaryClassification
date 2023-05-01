@@ -155,10 +155,9 @@ print("===> Loading Pre-trained Model for Phase 2")
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 print("===> Phase 1 Inferencing")
+y_valid_array = np.array(y_valid)
 y_pred1  = modelPhase1.predict(x_valid)
-cm = confusion_matrix(y_valid, y_pred1)
-print(cm)
-
+cm = confusion_matrix(y_valid_array, y_pred1)
 print("Successfully Classified Covid.")
 print("==================================================")
 # mask values in x_valid that resulted in y_pred1 >= 0.5
