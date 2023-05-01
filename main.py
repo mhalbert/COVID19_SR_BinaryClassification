@@ -106,7 +106,9 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     # psnr and ssim here on 64->128 to 128res/
     for img1 in os.listdir(path_128):
         for img2 in os.listdir(fawdn_out):
-            try img1 == img2:
+            print(img1)
+            print(img2)
+            try (img1 == img2):
                 psnrs.append(psnr(img1,img2))
             except:
                 print("Error!" + img1, img2)
@@ -115,7 +117,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     print("Time to compute PSNR", time_elapsed )
     # average psnr
     psnr_total = np.mean(psnrs)
-    print("==============================")    
+    print("==============================")
     print("Total PSNR: " + psnr_total)
     print("==============================")
 
