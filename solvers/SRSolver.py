@@ -16,7 +16,7 @@ from utils import util
 class SRSolver(BaseSolver):
     def __init__(self):
         super(SRSolver, self).__init__()
-        self.train_opt = "./models/best_FAWDN+_x2.pth"
+        self.train_opt = "/kaggle/working/COVID19_SR_BinaryClassification/models/best_FAWDN+_x2.pth"
         self.LR = self.Tensor()
         self.HR = self.Tensor()
         # self.patch_size = opt['datasets']['train']['LR_size']
