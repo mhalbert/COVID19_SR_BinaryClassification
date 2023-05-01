@@ -69,9 +69,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     print("Successfully created dataset. Ready for classification.")
     print("==================================================")
 
-    temp_x = pd.DataFrame(x)
     print(temp_x)
-    temp_y = pd.DataFrame(y)
     print(temp_y)
     return x, y
 
