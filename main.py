@@ -30,7 +30,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         x1,y1,x2,y2 = bboxes[i]
         img = img[y1:y2,x1:x2]
         img64 = cv2.resize(img, dim_size , interpolation = interpolation)
-        img128 = cv2.resize(img, (128, 128) , interpolation = interpolation)
+        img128 = cv2.resize(img, dim_size*2, interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
 
         try:
@@ -41,9 +41,6 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
             cv2.imwrite('/kaggle/working/128res/' + filename + '_128.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
-        #print(j, ' = 128-res image saved:128res/', filename, '_128.png ')
-        print(j, ' = ', i, ' image saved in 64res/', filename, '_64.png ')
-        j+=1
 
     # folder path
     dir_path = '/kaggle/working/64res/'
@@ -94,8 +91,8 @@ def index_generator(fnames , SET):
     index = random.sample(range(len(fnames)), SET)
     return index
 
-IMG_HEIGHT = 64
-IMG_WIDTH = 64
+IMG_HEIGHT = 128
+IMG_WIDTH = 128
 DIM = (IMG_HEIGHT, IMG_WIDTH)
 VALID_SET= 5000
 
