@@ -180,6 +180,7 @@ acc = accuracy_score(y_valid, y_pred_final)
 
 # Compute confusion matrix
 cm = confusion_matrix(y_valid, y_pred_final)
+print(cm)
 classes = ['Class 0', 'Class 1', 'Class 2']
 # Plot confusion matrix
 plt.imshow(cm, cmap=plt.cm.Blues)
