@@ -30,7 +30,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         x1,y1,x2,y2 = bboxes[i]
         img = img[y1:y2,x1:x2]
         img64 = cv2.resize(img, dim_size , interpolation = interpolation)
-        img128 = cv2.resize(img, dim_size*2, interpolation = interpolation)
+        img128 = cv2.resize(img, (256,256), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
 
         try:
