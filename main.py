@@ -96,7 +96,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
         x.append(img)
-        classLabel = filename.split('.png')[0][-1].astype(int)
+        classLabel = int(filename.split('.png')[0][-1])
         print(filename, classLabel)
         tempLabels.append(classLabel)
         #print(y[i])
