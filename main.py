@@ -69,11 +69,11 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         label_index += 1
 
         try:
-            cv2.imwrite('/kaggle/working/64res/' + filename + '_64' + class_ext + '.png', img64)
+            cv2.imwrite('/kaggle/working/64res/' + filename + '.png', img64)
         except:
             print("Error! Didn't write 64x64: ", filename )
         try:
-            cv2.imwrite('/kaggle/working/128res/' + filename + '_128' + class_ext + '.png', img128)
+            cv2.imwrite('/kaggle/working/128res/' + filename + '.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
 
@@ -147,75 +147,3 @@ valid_index = index_generator(fnames_valid, VALID_SET)
 #print("Length of index generator:", len(valid_index))
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
-
-# import pretrained binary models
-print("===> Loading Pre-trained Model for Phase 1")
-modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
-print("===> Loading Pre-trained Model for Phase 2")
-modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
-# inference on x_valid
-print("===> Phase 1 Inferencing")
-y_pred1  = modelPhase1.predict(x_valid)
-print("Successfully Classified Covid.")
-print("==================================================")
-# mask values in x_valid that resulted in y_pred1 >= 0.5
-mask = y_pred1 >= 0.5
-mask_expanded = np.expand_dims(mask, axis=(1, 2))
-x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
-#x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid) + np.expand_dims(np.array([0, 0, 0]), axis=0))
-
-#pass filtered normal/cap to phase 2
-print("===> Phase 2 inferencing")
-y_pred2 = modelPhase2.predict(x_valid_noncovid)
-print("Successfully Classified CAP.")
-print("Successfully Classified Normal.")
-print("==================================================")
-
-#0 normal, 1 pnemnia, 2 covid
-y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
-
-# print(y_valid, y_pred_final)
-# Compute avg accuracy score
-acc = accuracy_score(y_valid, y_pred_final)
-
-# Compute confusion matrix
-cm = confusion_matrix(y_valid, y_pred_final)
-# Define the labels for each class
-class_names = ['Normal', 'Covid-19', 'Cap']
-
-# Define the title of the confusion matrix
-title = 'Confusion Matrix'
-
-# Define the axis labels
-xlabel = 'Predicted label'
-ylabel = 'True label'
-
-# Define the colors for the confusion matrix
-cmap = 'Blues'
-
-# Normalize the confusion matrix
-normalized_cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-
-# Print the confusion matrix
-print(title)
-print()
-print(np.array2string(cm, separator=', ',
-                       formatter={'int': lambda x: f'{x:4d}'}))
-
-# Print the normalized confusion matrix
-print()
-print('Normalized confusion matrix')
-print(np.array2string(normalized_cm, separator=', ',
-                       formatter={'float': lambda x: f'{x:5.2f}'}))
-
-# Print the classification report
-print()
-print('Classification Report')
-print('---------------------')
-for i, class_name in enumerate(class_names):
-    precision = cm[i,i] / cm[:,i].sum()
-    recall = cm[i,i] / cm[i,:].sum()
-    f1_score = 2 * (precision * recall) / (precision + recall)
-    print(f'{class_name:<8} precision: {precision:.2f} recall: {recall:.2f} f1-score: {f1_score:.2f}')
-
-print(acc)
