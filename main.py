@@ -9,6 +9,7 @@ import random
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import shutil
 from sklearn.metrics import accuracy_score
 import matplotlib.image as mpimg
 
@@ -21,6 +22,7 @@ SEED = 12
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
     np.random.seed(SEED)
+    print(index)
     y = np.array(classes[index])
     print('Length of classes array: ', len(y))
     print('Length of index array: ', len(index))
@@ -34,6 +36,14 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img64 = cv2.resize(img, dim_size , interpolation = interpolation)
         img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
+
+        if os.path.exists('/kaggle/working/64res/'):
+            shutil.rmtree(dir)
+            os.makedirs(dir)
+
+        if os.path.exists('/kaggle/working/128res/'):
+            shutil.rmtree(dir)
+            os.makedirs(dir)
 
         try:
             cv2.imwrite('/kaggle/working/64res/' + filename + '_64.png', img64)
@@ -66,7 +76,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         # img open then grab the image data then append that
         print(filename)
         x.append(img)
-        print(i, y[i])
+        print(y[i])
         i += 1
     x = np.array(x)
 
