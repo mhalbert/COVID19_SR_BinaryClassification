@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import pandas as pd
 import os
+import time
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import tensorflow as tf
@@ -21,6 +22,13 @@ import test
 sns.set(style = "darkgrid")
 SEED = 12
 
+def psnr(img1, img2):
+    mse = np.mean((img1 - img2) ** 2)
+    if mse == 0:
+        return 100
+    PIXEL_MAX = 255.0
+    return 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
+
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
     normal = "_0"
@@ -29,21 +37,25 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     y = np.array(classes[index])
 
-    if os.path.exists('/kaggle/working/64res/'):
-        shutil.rmtree('/kaggle/working/64res/')
-        os.makedirs('/kaggle/working/64res/')
-    else:
-        os.makedirs('/kaggle/working/64res/')
+    path_64 = '/kaggle/working/64res/'
+    path_128 = '/kaggle/working/128res/'
+    fawdn_out = '/kaggle/working/MyImage/FAWDN/x2'
 
-    if os.path.exists('/kaggle/working/128res/'):
-        shutil.rmtree('/kaggle/working/128res/')
-        os.makedirs('/kaggle/working/128res/')
+    if os.path.exists(path_64):
+        shutil.rmtree(path_64)
+        os.makedirs(path_64)
     else:
-        os.makedirs('/kaggle/working/128res/')
+        os.makedirs(path_64)
 
-    if os.path.exists('/kaggle/working/MyImage/FAWDN/x2'):
-        shutil.rmtree('/kaggle/working/MyImage/FAWDN/x2')
-        os.makedirs('/kaggle/working/MyImage/FAWDN/x2')
+    if os.path.exists(path_128):
+        shutil.rmtree(path_128)
+        os.makedirs(path_128)
+    else:
+        os.makedirs(path_128)
+
+    if os.path.exists(fawdn_out):
+        shutil.rmtree(fawdn_out)
+        os.makedirs(fawdn_out)
 
     x = []
     label_index = 0
@@ -86,11 +98,31 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     #        print(path)
     #print('Files in 64res/:', count)
 
-    # Run sr step on 64res
-    test.inference('/kaggle/working/64res/')
+    # run sr step on 64res
+    test.inference(path_64)
+    psnrs = []
+
+    t0 = time.time()
+    # psnr and ssim here on 64->128 to 128res/
+    for img1 in os.listdir(path_128):
+        for img2 in os.listdir(fawdn_out):
+            try img1 == img2:
+                psnrs.append(psnr(img1,img2))
+            except:
+                print("Error!" + img1, img2)
+    t1 = time.time()
+    time_elapsed = t1-t0
+    print("Time to compute PSNR", time_elapsed )
+    # average psnr
+    psnr_total = np.mean(psnrs)
+    print("==============================")    
+    print("Total PSNR: " + psnr_total)
+    print("==============================")
+
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     i=0
     tempLabels = []
+    # TODO: CHANGE BACK TO OUTPUT FOLDER
     for filename in os.listdir('/kaggle/working/128res/'):
         img=cv2.imread(os.path.join('/kaggle/working/128res/', filename))
         # img open then grab the image data then append that
@@ -101,7 +133,6 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         #print(y[i])
         i += 1
     x = np.array(x)
-    # here take off the class ext and y.append() !!!!!
 
     print("==================================================")
     print("Successfully created dataset. Ready for classification.")
