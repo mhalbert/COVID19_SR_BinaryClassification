@@ -24,7 +24,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     x = []
     j=0
-    for i in index:
+    for i in index+1:
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         x1,y1,x2,y2 = bboxes[i]
@@ -45,8 +45,6 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         #print(j, ' = image saved in 64res/', filename, '_64.png ')
         j+=1
 
-
-    print("Indices count:", len(index))
     # folder path
     dir_path = '/kaggle/working/64res/'
 
@@ -58,7 +56,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
             count += 1
         else:
             print(path)
-    print('File count:', count)
+    print('Files in 64res/:', count)
 
     # Run sr step on 64res
     test.inference('/kaggle/working/64res/')
