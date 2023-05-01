@@ -5,6 +5,7 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import tensorflow as tf
+import random
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import accuracy_score
@@ -91,7 +92,7 @@ def load_labels(label_file):
 def index_generator(fnames , SET):
     """Genrated random index of a particular class"""
     np.random.seed(SEED)
-    index = np.random.sample(range(len(fnames)), size = SET)
+    index = random.sample(range(len(fnames)), size = SET)
     return index
 
 IMG_HEIGHT = 64
