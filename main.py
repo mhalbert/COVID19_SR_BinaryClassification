@@ -11,6 +11,7 @@ import pandas as pd
 import seaborn as sns
 import shutil
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 import matplotlib.image as mpimg
 
 #import SR inferencing
@@ -134,7 +135,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 5000
+VALID_SET= 50
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
@@ -171,8 +172,29 @@ print("==================================================")
 
 #0 normal, 1 pnemnia, 2 covid
 y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
+
 #print(y_valid, y_pred_final)
+# Compute avg accuracy score
 acc = accuracy_score(y_valid, y_pred_final)
+
+# Compute confusion matrix
+cm = confusion_matrix(y_valid, y_pred_final)
+classes = ['Class 0', 'Class 1', 'Class 2']
+# Plot confusion matrix
+plt.imshow(cm, cmap=plt.cm.Blues)
+plt.title('Confusion matrix')
+plt.colorbar()
+tick_marks = np.arange(len(classes))
+plt.xticks(tick_marks, classes)
+plt.yticks(tick_marks, classes)
+# Plot text on each cell
+for i, j in product(range(cm.shape[0]), range(cm.shape[1])):
+    plt.text(j, i, cm[i, j], ha='center', va='center')
+
+plt.xlabel('Predicted label')
+plt.ylabel('True label')
+plt.show()
+
 print(acc)
 
 
