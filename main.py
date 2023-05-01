@@ -27,7 +27,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     #np.random.seed(SEED) ?
     y = np.array(classes[index])
-    print(index, classes[index])
+    print(index, y)
 
     # we can clean up these paths if we want
     if os.path.exists('/kaggle/working/64res/'):
@@ -56,7 +56,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img64 = cv2.resize(img, dim_size , interpolation = interpolation)
         img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
-
+        print(y[label_index])
         if y[label_index] == '0':
             class_ext = normal
         elif y[label_index] == '1':
