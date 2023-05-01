@@ -66,7 +66,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         # img open then grab the image data then append that
         print(filename)
         x.append(img)
-        print(y[i])
+        print(i, y[i])
         i += 1
     x = np.array(x)
 
