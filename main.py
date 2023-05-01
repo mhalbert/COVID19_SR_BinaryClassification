@@ -27,7 +27,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     #np.random.seed(SEED) ?
     y = np.array(classes[index])
-    print(index, y)
+    #print(index, y)
 
     # we can clean up these paths if we want
     if os.path.exists('/kaggle/working/64res/'):
@@ -56,7 +56,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img64 = cv2.resize(img, dim_size , interpolation = interpolation)
         img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
-        print(y[label_index])
+        #print(y[label_index])
         if y[label_index] == 0:
             class_ext = normal
         elif y[label_index] == 1:
@@ -97,7 +97,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         # img open then grab the image data then append that
         x.append(img)
         classLabel = int(filename.split('.png')[0][-1])
-        print(filename, classLabel)
+        #print(filename, classLabel)
         tempLabels.append(classLabel)
         #print(y[i])
         i += 1
@@ -134,7 +134,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 500
+VALID_SET= 5000
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
@@ -171,7 +171,7 @@ print("==================================================")
 
 #0 normal, 1 pnemnia, 2 covid
 y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
-print(y_valid, y_pred_final)
+#print(y_valid, y_pred_final)
 acc = accuracy_score(y_valid, y_pred_final)
 print(acc)
 
