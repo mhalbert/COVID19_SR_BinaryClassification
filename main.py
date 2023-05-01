@@ -194,7 +194,7 @@ for i, j in product(range(cm.shape[0]), range(cm.shape[1])):
 
 plt.xlabel('Predicted label')
 plt.ylabel('True label')
-plt.show()
+plt.imshow()
 
 print(acc)
 
