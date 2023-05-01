@@ -22,14 +22,13 @@ SEED = 12
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
     np.random.seed(SEED)
-    print(index)
     y = np.array(classes[index])
+    print(classes[index])
     print('Length of classes array: ', len(y))
     print('Length of index array: ', len(index))
 
     x = []
     for i in index:
-        print(i)
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         x1,y1,x2,y2 = bboxes[i]
@@ -74,8 +73,8 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     i=0
 
     if os.path.exists('/kaggle/working/MyImage/FAWDN/x2'):
-            shutil.rmtree('/kaggle/working/MyImage/FAWDN/x2')
-            os.makedirs('/kaggle/working/MyImage/FAWDN/x2')
+        shutil.rmtree('/kaggle/working/MyImage/FAWDN/x2')
+        os.makedirs('/kaggle/working/MyImage/FAWDN/x2')
 
     for filename in os.listdir('/kaggle/working/MyImage/FAWDN/x2'):
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
