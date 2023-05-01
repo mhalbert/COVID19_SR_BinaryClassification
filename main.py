@@ -171,7 +171,7 @@ print("Successfully Classified Normal.")
 print("==================================================")
 
 #0 normal, 1 pnemnia, 2 covid
-y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 0, 1))
+y_pred_final = np.where(y_pred1 >= 0.5, 2, np.where(y_pred2 >= 0.5, 1, 0))
 
 # print(y_valid, y_pred_final)
 # Compute avg accuracy score
