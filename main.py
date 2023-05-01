@@ -155,6 +155,7 @@ print("===> Loading Pre-trained Model for Phase 2")
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 print("===> Phase 1 Inferencing")
+modelPhase1.evaluate(x_valid, y_valid)
 y_pred1  = modelPhase1.predict(x_valid)
 print("Successfully Classified Covid.")
 print("==================================================")
@@ -166,6 +167,7 @@ x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
 
 #pass filtered normal/cap to phase 2
 print("===> Phase 2 inferencing")
+modelPhase2.evaluate(x_valid, y_valid)
 y_pred2 = modelPhase2.predict(x_valid_noncovid)
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
