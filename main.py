@@ -155,9 +155,10 @@ print("===> Loading Pre-trained Model for Phase 2")
 modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 print("===> Phase 1 Inferencing")
-y_valid_array = np.array(y_valid)
-dense = modelPhase1.evaluate(x_valid, y_valid_array)
 y_pred1  = modelPhase1.predict(x_valid)
+cm = confusion_matrix(y_valid, y_pred1)
+print(cm)
+
 print("Successfully Classified Covid.")
 print("==================================================")
 # mask values in x_valid that resulted in y_pred1 >= 0.5
@@ -168,7 +169,6 @@ x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
 
 #pass filtered normal/cap to phase 2
 print("===> Phase 2 inferencing")
-inception = modelPhase2.evaluate(x_valid, y_valid_array)
 y_pred2 = modelPhase2.predict(x_valid_noncovid)
 print("Successfully Classified CAP.")
 print("Successfully Classified Normal.")
@@ -184,7 +184,7 @@ acc = accuracy_score(y_valid, y_pred_final)
 # Compute confusion matrix
 cm = confusion_matrix(y_valid, y_pred_final)
 # Define the labels for each class
-class_names = ['Normal', 'Covid-19', 'Cap']
+class_names = ['Normal', 'Cap', 'Covid-19']
 
 # Define the title of the confusion matrix
 title = 'Confusion Matrix'
