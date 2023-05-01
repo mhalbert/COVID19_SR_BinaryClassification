@@ -19,6 +19,9 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     """Constructs and splits X and Y for training , validtion and test"""
     np.random.seed(SEED)
     y = np.array(classes[index])
+    print('Length of classes array: ', len(y))
+    print('Length of index array: ', len(index))
+
     x = []
     j=0
     for i in index:
@@ -29,7 +32,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img64 = cv2.resize(img, dim_size , interpolation = interpolation)
         img128 = cv2.resize(img, (128, 128) , interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
-        #print(filename)
+
         try:
             cv2.imwrite('/kaggle/working/64res/' + filename + '_64.png', img64)
         except:
