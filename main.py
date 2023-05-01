@@ -65,11 +65,9 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img=cv2.imread(os.path.join('/kaggle/working/MyImage/FAWDN/x2', filename))
         # img open then grab the image data then append that
         print(filename)
-        imgplot = plt.imshow(img)
-        plt.show()
         x.append(img)
         print(y[i])
-        i = i + 1
+        i += 1
     x = np.array(x)
 
     print("==================================================")
