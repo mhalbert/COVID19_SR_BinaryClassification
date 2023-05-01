@@ -21,12 +21,15 @@ SEED = 12
 
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
-    np.random.seed(SEED)
+    normal = "_0"
+    cap = "_1"
+    covid = "_2"
+
+    #np.random.seed(SEED) ?
     y = np.array(classes[index])
     print(index, classes[index])
-    print('Length of classes array: ', len(y))
-    print('Length of index array: ', len(index))
 
+    # we can clean up these paths if we want
     if os.path.exists('/kaggle/working/64res/'):
         shutil.rmtree('/kaggle/working/64res/')
         os.makedirs('/kaggle/working/64res/')
@@ -44,6 +47,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         os.makedirs('/kaggle/working/MyImage/FAWDN/x2')
 
     x = []
+    label_index = 0
     for i in index:
         img = cv2.imread(filepath[i])
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -53,25 +57,35 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
 
+        if y[label_index] == '0':
+            class_ext = normal
+        elif y[label_index] == '1':
+            class_ext = cap
+        else:
+            class_ext = covid
+
+        label_index += 1
+
         try:
-            cv2.imwrite('/kaggle/working/64res/' + filename + '_64.png', img64)
+            cv2.imwrite('/kaggle/working/64res/' + filename + '_64' + class_ext + '.png', img64)
         except:
             print("Error! Didn't write 64x64: ", filename )
         try:
-            cv2.imwrite('/kaggle/working/128res/' + filename + '_128.png', img128)
+            cv2.imwrite('/kaggle/working/128res/' + filename + '_128' + class_ext + '.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
 
 
-    count = 0
+
+    #count = 0
     # Iterate directory
-    for path in os.listdir('/kaggle/working/64res/'):
+    #for path in os.listdir('/kaggle/working/64res/'):
         # check if current path is a file
-        if os.path.isfile(os.path.join('/kaggle/working/64res/', path)):
-            count += 1
-        else:
-            print(path)
-    print('Files in 64res/:', count)
+    #    if os.path.isfile(os.path.join('/kaggle/working/64res/', path)):
+    #        count += 1
+    #    else:
+    #        print(path)
+    #print('Files in 64res/:', count)
 
     # Run sr step on 64res
     test.inference('/kaggle/working/64res/')
@@ -87,11 +101,12 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         i += 1
     x = np.array(x)
 
+    # here take off the class ext and y.append() !!!!!
+
     print("==================================================")
     print("Successfully created dataset. Ready for classification.")
     print("==================================================")
 
-    print(y)
     return x, y
 
 # Auxillary data prep functions
@@ -126,7 +141,7 @@ label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
 #print(len(fnames_valid))
 valid_index = index_generator(fnames_valid, VALID_SET)
-print("Length of index generator:", len(valid_index))
+#print("Length of index generator:", len(valid_index))
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
 
