@@ -92,7 +92,7 @@ def load_labels(label_file):
 def index_generator(fnames , SET):
     """Genrated random index of a particular class"""
     np.random.seed(SEED)
-    index = random.sample(range(len(fnames)), size = SET)
+    index = random.sample(range(len(fnames)), SET)
     return index
 
 IMG_HEIGHT = 64
