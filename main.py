@@ -150,9 +150,9 @@ x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
 
 # import pretrained binary models
 print("===> Loading Pre-trained Model for Phase 1")
-modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
+modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models2/BinaryPhase1.h5')
 print("===> Loading Pre-trained Model for Phase 2")
-modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCapNew.h5')
+modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models2/BinaryPhase2.h5')
 # inference on x_valid
 print("===> Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
