@@ -25,7 +25,7 @@ class LRDataset(data.Dataset):
 
     def __getitem__(self, idx):
         # get LR image
-        print('Get file:', idx)
+        #print('Get file:', idx)
         lr, lr_path = self._load_file(idx)
         lr_tensor = common.np2Tensor([lr], 255)[0]
         return {'LR': lr_tensor, 'LR_path': lr_path}
@@ -36,7 +36,7 @@ class LRDataset(data.Dataset):
 
 
     def _load_file(self, idx):
-        print('Load file:', idx)
+        #print('Load file:', idx)
         lr_path = self.paths_LR[idx]
         lr = common.read_img(lr_path, "img")
 
