@@ -49,11 +49,11 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
             os.makedirs(dir128)
 
         try:
-            cv2.imwrite(dir64, filename + '_64.png', img64)
+            cv2.imwrite(dir64 + filename + '_64.png', img64)
         except:
             print("Error! Didn't write 64x64: ", filename )
         try:
-            cv2.imwrite(dir128, filename + '_128.png', img128)
+            cv2.imwrite(dir128 + filename + '_128.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
 
