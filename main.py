@@ -99,7 +99,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         # img open then grab the image data then append that
         x.append(img)
         classLabel = int(filename.split('.png')[0][-1])
-        print(filename, classLabel)
+        #print(filename, classLabel)
         tempLabels.append(classLabel)
         #print(y[i])
         i += 1
