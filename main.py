@@ -162,7 +162,6 @@ print("==================================================")
 mask = y_pred1 >= 0.5
 mask_expanded = np.expand_dims(mask, axis=(1, 2))
 x_valid_noncovid = np.where(mask_expanded, np.zeros_like(x_valid), x_valid)
-#x_valid_noncovid = np.where(y_pred1 < 0.5, x_valid, np.zeros_like(x_valid) + np.expand_dims(np.array([0, 0, 0]), axis=0))
 
 #pass filtered normal/cap to phase 2
 print("===> Phase 2 inferencing")
@@ -172,7 +171,7 @@ print("Successfully Classified Normal.")
 print("==================================================")
 
 #0 normal, 1 pnemnia, 2 covid
-y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 1, 0))
+y_pred_final = np.where(y_pred1 > 0.5, 2, np.where(y_pred2 > 0.5, 0, 1))
 
 # print(y_valid, y_pred_final)
 # Compute avg accuracy score
