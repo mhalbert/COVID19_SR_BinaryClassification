@@ -37,19 +37,17 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         img128 = cv2.resize(img, (128,128), interpolation = interpolation)
         filename, _ = os.path.splitext(os.path.basename(filepath[i]))
 
-        dir64 = '/kaggle/working/64res/'
-        dir128 = '/kaggle/working/64res/'
-        if os.path.exists(dir64):
-            shutil.rmtree(dir64)
-            os.makedirs(dir64)
+        if os.path.exists('/kaggle/working/64res/'):
+            shutil.rmtree('/kaggle/working/64res/')
+            os.makedirs('/kaggle/working/64res/')
         else:
-            os.makedirs(dir64)
+            os.makedirs('/kaggle/working/64res/')
 
-        if os.path.exists(dir128):
-            shutil.rmtree(dir128)
-            os.makedirs(dir128)
+        if os.path.exists('/kaggle/working/128res/'):
+            shutil.rmtree('/kaggle/working/128res/')
+            os.makedirs('/kaggle/working/128res/')
         else:
-            os.makedirs(dir128)
+            os.makedirs('/kaggle/working/128res/')
 
         try:
             cv2.imwrite('/kaggle/working/64res/' + filename + '_64.png', img64)
@@ -63,16 +61,16 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     count = 0
     # Iterate directory
-    for path in os.listdir(dir64):
+    for path in os.listdir('/kaggle/working/64res/'):
         # check if current path is a file
-        if os.path.isfile(os.path.join(dir64, path)):
+        if os.path.isfile(os.path.join('/kaggle/working/64res/', path)):
             count += 1
         else:
             print(path)
     print('Files in 64res/:', count)
 
     # Run sr step on 64res
-    test.inference(dir64)
+    test.inference('/kaggle/working/64res/')
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     i=0
 
