@@ -109,6 +109,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     # psnr and ssim here on 64->128 to 128res/
     for img1, img2 in zip(sorted_128, sorted_fawdn):
             if img1 == img2:
+                print("Calculating: ", img1 + " " + img2)
                 psnrs.append(psnr(img1,img2))
             else:
                 print("Error! " + img1, img2)
