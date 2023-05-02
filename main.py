@@ -221,8 +221,9 @@ acc = accuracy_score(y_valid, y_pred_final)
 cm = confusion_matrix(y_valid, y_pred_final)
 # Define the labels for each class
 class_names = ['Normal', 'Cap', 'Covid-19']
-with open('/kaggle/working/cm.txt', 'w') as f:
-    f.write(cm)
+
+# save CM to text file to access in kaggle.
+np.savetxt('/kaggle/working/cm.txt', cm, delimiter=",")
 
 # Define the title of the confusion matrix
 title = 'Confusion Matrix'
