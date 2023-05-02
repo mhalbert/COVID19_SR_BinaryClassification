@@ -39,8 +39,8 @@ def ssim(original, generated):
     i2 = cv2.imread('/kaggle/working/MyImage/FAWDN/x2/' + generated)
     before_gray = cv2.cvtColor(i1, cv2.COLOR_BGR2GRAY)
     after_gray = cv2.cvtColor(i2, cv2.COLOR_BGR2GRAY)
-    (score, diff) = structural_similarity(before_gray, after_gray, full=True)
-    return score, diff
+    (score, _) = structural_similarity(before_gray, after_gray, full=True)
+    return score
 
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
