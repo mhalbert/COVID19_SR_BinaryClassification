@@ -119,13 +119,13 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     t1 = time.time()
     time_elapsed = t1-t0
-    print("==============================")
+    print("==================================================")
     print("Time to compute PSNR", time_elapsed )
     # average psnr
     psnr_total = np.mean(psnrs)
-    print("==============================")
+    print("==================================================")
     print("Average PSNR: ", psnr_total)
-    print("==============================")
+
 
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     i=0
@@ -143,7 +143,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     x = np.array(x)
 
     print("==================================================")
-    print("Successfully created dataset. Ready for classification.")
+    print("===> Successfully created dataset. Ready for classification.")
     print("==================================================")
 
     return x, tempLabels
@@ -217,6 +217,8 @@ acc = accuracy_score(y_valid, y_pred_final)
 cm = confusion_matrix(y_valid, y_pred_final)
 # Define the labels for each class
 class_names = ['Normal', 'Cap', 'Covid-19']
+with open('/kaggle/working/cm.txt', 'w') as f:
+    f.write(cm)
 
 # Define the title of the confusion matrix
 title = 'Confusion Matrix'
