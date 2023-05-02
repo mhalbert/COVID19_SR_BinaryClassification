@@ -23,9 +23,9 @@ import test
 sns.set(style = "darkgrid")
 SEED = 12
 
-def psnr(img1, img2):
-    i1 = cv2.imread('/kaggle/working/128res/' + img1)
-    i2 = cv2.imread('/kaggle/working/MyImage/FAWDN/x2/' + img2)
+def psnr(original, generated):
+    i1 = cv2.imread('/kaggle/working/128res/' + original)
+    i2 = cv2.imread('/kaggle/working/MyImage/FAWDN/x2/' + generated)
     mse = np.mean((i1 - i2) ** 2)
     if mse == 0:
         return 100
