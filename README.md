@@ -20,6 +20,14 @@ aims to enables more efficient performance by utilizing two simple CNNs.
 This approach offers advantages such as enabling us to allocate more time 
 and computational resources towards image super-resolution and processing low-dimensional data.
 
+## How to begin:
+
+In /two_phase you will find two jupyter notebooks, used for easy training of each phase
+of the binary classification process. Run each script and train to output your models. 
+These models will need to be accessed in lines 189 and 191 of main.py.
+
+Pretrained models for FAWDN SR are found in /models and implemented in our scripts already.
+
 ## Testing
 
 ### Method 1 (Recommended):
@@ -31,7 +39,7 @@ be pushed to your forked repo and git pull-ed on Kaggle.
    !python /kaggle/working/COVID19_SR_BinaryClassification/main.py 
 ```
 
-important paths for Kaggle usage (in main.py):
+Important paths for Kaggle usage (in main.py):
 ```
     path_64 = '/kaggle/working/64res/'
     path_128 = '/kaggle/working/128res/'

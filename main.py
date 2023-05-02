@@ -19,24 +19,23 @@ from skimage.metrics import structural_similarity
 from itertools import product
 import matplotlib.image as mpimg
 
-#import SR inferencing
+#import SR inferencing script
 import test
 
-sns.set(style = "darkgrid")
 SEED = 12
 
-def psnr(original, generated):
-    i1 = cv2.imread('/kaggle/working/128res/' + original)
-    i2 = cv2.imread('/kaggle/working/MyImage/FAWDN/x2/' + generated)
+def psnr(original, generated, path_original, path_generated):
+    i1 = cv2.imread(path_original + original)
+    i2 = cv2.imread(path_generated + generated)
     mse = np.mean((i1 - i2) ** 2)
     if mse == 0:
         return 100
     PIXEL_MAX = 255.0
     return 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
 
-def ssim(original, generated):
-    i1 = cv2.imread('/kaggle/working/128res/' + original)
-    i2 = cv2.imread('/kaggle/working/MyImage/FAWDN/x2/' + generated)
+def ssim(original, generated, path_original, path_generated):
+    i1 = cv2.imread(path_original + original)
+    i2 = cv2.imread(path_generated + generated)
     before_gray = cv2.cvtColor(i1, cv2.COLOR_BGR2GRAY)
     after_gray = cv2.cvtColor(i2, cv2.COLOR_BGR2GRAY)
     (score, _) = structural_similarity(before_gray, after_gray, full=True)
@@ -91,25 +90,13 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         label_index += 1
 
         try:
-            cv2.imwrite('/kaggle/working/64res/' + filename + class_ext + '.png', img64)
+            cv2.imwrite(path_64 + filename + class_ext + '.png', img64)
         except:
             print("Error! Didn't write 64x64: ", filename )
         try:
-            cv2.imwrite('/kaggle/working/128res/' + filename + class_ext + '.png', img128)
+            cv2.imwrite(path_128 + filename + class_ext + '.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
-
-
-
-    #count = 0
-    # Iterate directory
-    #for path in os.listdir('/kaggle/working/64res/'):
-        # check if current path is a file
-    #    if os.path.isfile(os.path.join('/kaggle/working/64res/', path)):
-    #        count += 1
-    #    else:
-    #        print(path)
-    #print('Files in 64res/:', count)
 
     # run sr step on 64res
     test.inference(path_64)
@@ -124,8 +111,8 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     for img1, img2 in zip(sorted_128, sorted_fawdn):
             if img1 == img2:
                 #print("Calculating: ", img1 + " " + img2)
-                psnrs.append(psnr(img1,img2))
-                ssims.append(ssim(img1,img2))
+                psnrs.append(psnr(img1,img2, path_128, fawdn_out))
+                ssims.append(ssim(img1,img2, path_128, fawdn_out))
             else:
                 print("Error! " + img1, img2)
 
@@ -144,8 +131,8 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     i=0
     tempLabels = []
     # TODO: CHANGE BACK TO OUTPUT FOLDER
-    for filename in os.listdir('/kaggle/working/128res/'):
-        img=cv2.imread(os.path.join('/kaggle/working/128res/', filename))
+    for filename in os.listdir(fawdn_out):
+        img=cv2.imread(os.path.join(fawdn_out, filename))
         # img open then grab the image data then append that
         x.append(img)
         classLabel = int(filename.split('.png')[0][-1])
@@ -197,11 +184,11 @@ valid_index = index_generator(fnames_valid, VALID_SET)
 x_valid , y_valid = data_constructor(fnames_valid, classes_valid, DIM, index=valid_index, bboxes = bboxes_valid)
 x_valid = tf.keras.applications.densenet.preprocess_input(x_valid)
 
-# import pretrained binary models
+# import pretrained binary models, found on Kaggle Datasets
 print("===> Loading Pre-trained Model for Phase 1")
-modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models2/BinaryPhase1.h5')
+modelPhase1 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase1BaseRun.h5')
 print("===> Loading Pre-trained Model for Phase 2")
-modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models2/BinaryPhase2.h5')
+modelPhase2 = tf.keras.models.load_model('/kaggle/input/pretrained-models/BinaryPhase2NormalCap.h5')
 # inference on x_valid
 print("===> Phase 1 Inferencing")
 y_pred1  = modelPhase1.predict(x_valid)
