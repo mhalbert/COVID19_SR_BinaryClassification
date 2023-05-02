@@ -104,10 +104,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     t0 = time.time()
     # psnr and ssim here on 64->128 to 128res/
-    for img1 in os.listdir(path_128):
-        for img2 in os.listdir(fawdn_out):
-            print(img1)
-            print(img2)
+    for img1, img2 in zip(os.listdir(path_128), os.listdir(fawdn_out):
             if img1 == img2:
                 psnrs.append(psnr(img1,img2))
             else:
