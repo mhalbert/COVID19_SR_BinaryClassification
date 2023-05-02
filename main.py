@@ -178,7 +178,6 @@ IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
 VALID_SET= 5000
 
-label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
 
 fnames_valid, classes_valid, bboxes_valid = load_labels(label_file_valid)
