@@ -57,7 +57,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     path_64 = '/kaggle/working/64res/'
     path_128 = '/kaggle/working/128res/'
-    fawdn_out = '/kaggle/working/MyImage/FAWDN/x2'
+    fawdn_out = '/kaggle/working/MyImage/FAWDN/x2/'
 
     if os.path.exists(path_64):
         shutil.rmtree(path_64)
