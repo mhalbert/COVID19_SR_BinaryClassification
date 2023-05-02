@@ -108,9 +108,9 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         for img2 in os.listdir(fawdn_out):
             print(img1)
             print(img2)
-            try (img1 == img2):
+            if img1 == img2:
                 psnrs.append(psnr(img1,img2))
-            except:
+            else:
                 print("Error!" + img1, img2)
     t1 = time.time()
     time_elapsed = t1-t0
