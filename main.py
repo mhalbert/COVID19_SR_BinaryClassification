@@ -237,6 +237,9 @@ cmap = 'Blues'
 # Normalize the confusion matrix
 normalized_cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
 
+# save CM to text file to access in kaggle.
+np.savetxt('/kaggle/working/normalized_cm.txt', normalized_cm, delimiter=",")
+
 # Print the confusion matrix
 print(title)
 print()
