@@ -25,6 +25,7 @@ SEED = 12
 def psnr(img1, img2):
     i1 = cv2.imread('/kaggle/working/128res/' + img1)
     i2 = cv2.imread('/kaggle/working/MyImage/FAWDN/x2/' + img2)
+    print(i1, i2)
     mse = np.mean((i1 - i2) ** 2)
     if mse == 0:
         return 100
