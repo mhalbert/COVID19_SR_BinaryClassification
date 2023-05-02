@@ -105,7 +105,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     test.inference(path_64)
 
     sorted_128 = sorted(os.listdir(path_128))
-    sorted_fawdn = sorted(os.listdir(path_128))
+    sorted_fawdn = sorted(os.listdir(fawdn_out))
 
     psnrs = []
     t0 = time.time()
