@@ -45,4 +45,18 @@ important paths for local system usage (in main.py):
 ```
 
 
+## Credits
+
+- This project's SR code base is based upon FAWDN: 'Feedback Adversarial Weighting Dense Network' [1] found at https://github.com/Paper99/SRFBN_CVPR19 
+and uses pretrained medical imaging models avaliable through https://github.com/Lihui-Chen/FAWDN
+- This project's two-phase binary classification is based upon Sanskar et al. 'A novel approach for detection of COVID-19 and Pneumonia using only binary classification from chest CT-scans' [2]. 
+Original code can be found at: https://github.com/sanskar-hasija/COVID-19_Detection
+- We utlize the COVIDxCT 3A dataset accessible via Kaggle. https://www.kaggle.com/datasets/hgunraj/covidxct
+
+## 
+[1] J. Hu, L. Shen, and G. Sun, "Feedback Network for Image Super-Resolution," in IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2016, pp. 3188-3196.
+
+[2] Sanskar, H., et al., A novel approach for detection of COVID-19 and Pneumonia using only binary classification from chest CT-scans. Neuroscience Informatics, Volume 2, Issue 4. 2022. 100069. ISSN 2772-5286. [Online]. Accessible: https://doi.org/10.1016/j.neuri.2022.100069.
+
+
 
