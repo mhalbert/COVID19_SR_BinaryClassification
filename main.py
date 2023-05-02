@@ -23,7 +23,9 @@ sns.set(style = "darkgrid")
 SEED = 12
 
 def psnr(img1, img2):
-    mse = np.mean((img1 - img2) ** 2)
+    i1 = cv2.imread('/kaggle/working/128res/' + img1)
+    i2 = cv2.imread('/kaggle/working/MyImage/FAWDN/x2/' + img2)
+    mse = np.mean((i1 - i2) ** 2)
     if mse == 0:
         return 100
     PIXEL_MAX = 255.0
