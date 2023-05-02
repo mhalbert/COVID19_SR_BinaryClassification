@@ -81,11 +81,11 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
         label_index += 1
 
         try:
-            cv2.imwrite('/kaggle/working/64res/' + filename, class_ext + '.png', img64)
+            cv2.imwrite('/kaggle/working/64res/' + filename + class_ext + '.png', img64)
         except:
             print("Error! Didn't write 64x64: ", filename )
         try:
-            cv2.imwrite('/kaggle/working/128res/' + filename, class_ext + '.png', img128)
+            cv2.imwrite('/kaggle/working/128res/' + filename + class_ext + '.png', img128)
         except:
             print("Error! Didn't write 128x128: ", filename )
 
