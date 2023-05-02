@@ -10,6 +10,15 @@ classification accuracies.
 
 
 ![Our Architecture](architecture.png)
+The above figure depicts our method, which comprises the following steps: 
+- Resizing and augmenting COVID-19 data samples
+- FAWDN super-resolution process
+- Two-phase binary classification approach as defined by Hasija et al. [1]. 
+
+Our implementation of a two-phase binary classification approach, as opposed to a multi-class approach, 
+aims to enables more efficient performance by utilizing two simple CNNs. 
+This approach offers advantages such as enabling us to allocate more time 
+and computational resources towards image super-resolution and processing low-dimensional data.
 
 ## Testing
 
