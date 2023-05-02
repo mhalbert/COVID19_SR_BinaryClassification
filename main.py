@@ -35,8 +35,10 @@ def psnr(original, generated):
     return 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
 
 def ssim(original, generated):
-    before_gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
-    after_gray = cv2.cvtColor(generated, cv2.COLOR_BGR2GRAY)
+    i1 = cv2.imread('/kaggle/working/128res/' + original)
+    i2 = cv2.imread('/kaggle/working/MyImage/FAWDN/x2/' + generated)
+    before_gray = cv2.cvtColor(i1, cv2.COLOR_BGR2GRAY)
+    after_gray = cv2.cvtColor(i2, cv2.COLOR_BGR2GRAY)
     (score, diff) = structural_similarity(before_gray, after_gray, full=True)
     return score, diff
 
