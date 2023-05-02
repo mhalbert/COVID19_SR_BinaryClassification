@@ -173,8 +173,8 @@ def index_generator(fnames , SET):
     index = random.sample(range(len(fnames)), SET)
     return index
 
-IMG_HEIGHT = 64
-IMG_WIDTH = 64
+IMG_HEIGHT = 128
+IMG_WIDTH = 128
 DIM = (IMG_HEIGHT, IMG_WIDTH)
 VALID_SET= 5000
 
