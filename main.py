@@ -28,7 +28,7 @@ def psnr(original, generated, path_original, path_generated):
     i1_path = path_original + original
     i2_path = path_generated + generated
     i1 = cv2.imread(i1_path)
-    i2 = cv2.imread(i2_path
+    i2 = cv2.imread(i2_path)
     mse = np.mean((i1 - i2) ** 2)
     if mse == 0:
         return 100
@@ -39,7 +39,7 @@ def ssim(original, generated, path_original, path_generated):
     i1_path = path_original + original
     i2_path = path_generated + generated
     i1 = cv2.imread(i1_path)
-    i2 = cv2.imread(i2_path
+    i2 = cv2.imread(i2_path)
     before_gray = cv2.cvtColor(i1, cv2.COLOR_BGR2GRAY)
     after_gray = cv2.cvtColor(i2, cv2.COLOR_BGR2GRAY)
     (score, _) = structural_similarity(before_gray, after_gray, full=True)
