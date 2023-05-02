@@ -262,4 +262,4 @@ for i, class_name in enumerate(class_names):
     f1_score = 2 * (precision * recall) / (precision + recall)
     print(f'{class_name:<8} precision: {precision:.2f} recall: {recall:.2f} f1-score: {f1_score:.2f}')
 
-print(acc)
+print("Average Accuracy: ", acc)
