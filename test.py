@@ -1,3 +1,10 @@
+# ====================================================================
+# Adapted from code base found at: https://github.com/Lihui-Chen/FAWDN
+#
+# Uses adapted dataloaders, solvers, and pathing. Learn more at
+# https://github.com/Paper99/SRFBN_CVPR19.
+# ====================================================================
+
 import argparse, time, os
 import imageio
 

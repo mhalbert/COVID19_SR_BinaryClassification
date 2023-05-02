@@ -1,3 +1,12 @@
+# ====================================================================
+# Adapted from code base found at: https://github.com/Lihui-Chen/FAWDN
+# and https://github.com/sanskar-hasija/COVID-19_Detection
+#
+# Uses adapted dataloaders, solvers, and pathing. Learn more at
+# https://github.com/Paper99/SRFBN_CVPR19 and https://github.com/sanskar-
+# hasija/COVID-19_Detection
+# ====================================================================
+
 import cv2
 import numpy as np
 import pandas as pd
