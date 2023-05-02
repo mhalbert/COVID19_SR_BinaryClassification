@@ -104,7 +104,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     t0 = time.time()
     # psnr and ssim here on 64->128 to 128res/
-    for img1, img2 in zip(os.listdir(path_128), os.listdir(fawdn_out):
+    for img1, img2 in zip(os.listdir(path_128), os.listdir(fawdn_out)):
             if img1 == img2:
                 psnrs.append(psnr(img1,img2))
             else:
@@ -163,7 +163,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 500
+VALID_SET= 10
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
