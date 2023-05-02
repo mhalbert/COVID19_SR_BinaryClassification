@@ -100,22 +100,26 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
 
     # run sr step on 64res
     test.inference(path_64)
-    psnrs = []
 
+    sorted_128 = sorted(os.listdir(path_128))
+    sorted_fawdn = sorted(os.listdir(path_128))
+
+    psnrs = []
     t0 = time.time()
     # psnr and ssim here on 64->128 to 128res/
-    for img1, img2 in zip(os.listdir(path_128), os.listdir(fawdn_out)):
+    for img1, img2 in zip(sorted_128, sorted_fawdn):
             if img1 == img2:
                 psnrs.append(psnr(img1,img2))
             else:
-                print("Error!" + img1, img2)
+                print("Error! " + img1, img2)
+
     t1 = time.time()
     time_elapsed = t1-t0
     print("Time to compute PSNR", time_elapsed )
     # average psnr
     psnr_total = np.mean(psnrs)
     print("==============================")
-    print("Total PSNR: " + psnr_total)
+    print("Total PSNR: ", psnr_total)
     print("==============================")
 
     # loop through SR output folder /results/SR/MyImage/FAWDN/
