@@ -138,7 +138,7 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     ssim_total = np.mean(ssims)
     print("==================================================")
     print("Average PSNR: ", psnr_total)
-
+    print("Average SSIM: ", ssim_total)
 
     # loop through SR output folder /results/SR/MyImage/FAWDN/
     i=0
