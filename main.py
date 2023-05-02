@@ -25,8 +25,9 @@ import test
 SEED = 12
 
 def psnr(original, generated, path_original, path_generated):
-    i1 = cv2.imread(path_original + original)
-    i2 = cv2.imread(path_generated + generated)
+    print(path_original + original)
+    i1 = cv2.imread(path_original, original)
+    i2 = cv2.imread(path_generated, generated)
     mse = np.mean((i1 - i2) ** 2)
     if mse == 0:
         return 100
