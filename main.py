@@ -12,8 +12,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import shutil
+import skimage
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
+from skimage.metrics import structural_similarity
 from itertools import product
 import matplotlib.image as mpimg
 
@@ -31,6 +33,12 @@ def psnr(original, generated):
         return 100
     PIXEL_MAX = 255.0
     return 20 * math.log10(PIXEL_MAX / math.sqrt(mse))
+
+def ssim(original, generated):
+    before_gray = cv2.cvtColor(original, cv2.COLOR_BGR2GRAY)
+    after_gray = cv2.cvtColor(generated, cv2.COLOR_BGR2GRAY)
+    (score, diff) = structural_similarity(before_gray, after_gray, full=True)
+    return score, diff
 
 def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolation = cv2.INTER_AREA):
     """Constructs and splits X and Y for training , validtion and test"""
@@ -108,21 +116,24 @@ def data_constructor(filepath, classes , dim_size ,index  ,bboxes , interpolatio
     sorted_fawdn = sorted(os.listdir(fawdn_out))
 
     psnrs = []
+    ssims = []
     t0 = time.time()
     # psnr and ssim here on 64->128 to 128res/
     for img1, img2 in zip(sorted_128, sorted_fawdn):
             if img1 == img2:
                 #print("Calculating: ", img1 + " " + img2)
                 psnrs.append(psnr(img1,img2))
+                ssims.append(ssim(img1,img2))
             else:
                 print("Error! " + img1, img2)
 
     t1 = time.time()
     time_elapsed = t1-t0
     print("==================================================")
-    print("Time to compute PSNR", time_elapsed )
+    print("Time to compute PSNR and SSIM", time_elapsed )
     # average psnr
     psnr_total = np.mean(psnrs)
+    ssim_total = np.mean(ssims)
     print("==================================================")
     print("Average PSNR: ", psnr_total)
 
@@ -172,7 +183,7 @@ def index_generator(fnames , SET):
 IMG_HEIGHT = 64
 IMG_WIDTH = 64
 DIM = (IMG_HEIGHT, IMG_WIDTH)
-VALID_SET= 5000
+VALID_SET= 10
 
 label_file_train = "train_COVIDx-CT.txt"
 label_file_valid = "/kaggle/input/covidxct/val_COVIDx_CT-3A.txt"
