@@ -31,7 +31,9 @@ Pretrained models for FAWDN SR are found in /models and implemented in our scrip
 ## Testing
 
 ### Method 1 (Recommended):
-Running cloned git repo in a Kaggle notebook. Any personal changes to our scripts can 
+First, import both the covidxct(https://www.kaggle.com/datasets/hgunraj/covidxct) and pretrained models(https://www.kaggle.com/datasets/ethanlegum/pretrained-models) datasets into the data input section on your kaggle notebook.
+
+Next, running the following code will clone a git repo in a Kaggle notebook. Any personal changes to our scripts can 
 be pushed to your forked repo and git pull-ed on Kaggle. 
 ```
    # Kaggle Cell Example:
